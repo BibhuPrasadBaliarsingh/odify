@@ -5,11 +5,8 @@
 @import '@fontsource/instrument-serif';
 @import '@fontsource/instrument-serif/400-italic.css';
 
-@theme {
-  --font-display: 'Space Grotesk Variable', 'Space Grotesk', sans-serif;
-  --font-body: 'Manrope Variable', 'Manrope', sans-serif;
-  --font-accent: 'Instrument Serif', serif;
-
+:root {
+  /* DARK THEME (DEFAULT - UNCHANGED) */
   --color-ink: #0a0b0d;
   --color-ink-soft: #101116;
   --color-surface: #15161c;
@@ -22,6 +19,42 @@
   --color-signal: #4d5bff;
   --color-signal-soft: #7d88ff;
   --color-signal-dim: #1c2050;
+}
+
+/* LIGHT THEME (WHITE & ORANGE ACCENT) */
+html[data-theme="light"],
+html.light {
+  --color-ink: #faf9f5;
+  --color-ink-soft: #f2f0e6;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f7f5ed;
+  --color-line: #e2dfd4;
+  --color-line-soft: #eceae1;
+  --color-bone: #14151a;
+  --color-bone-dim: #4e515d;
+  --color-bone-faint: #888b97;
+  --color-signal: #ff5500;
+  --color-signal-soft: #ff6f1a;
+  --color-signal-dim: #fff0e6;
+}
+
+@theme {
+  --font-display: 'Space Grotesk Variable', 'Space Grotesk', sans-serif;
+  --font-body: 'Manrope Variable', 'Manrope', sans-serif;
+  --font-accent: 'Instrument Serif', serif;
+
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-surface: var(--color-surface);
+  --color-surface-soft: var(--color-surface-soft);
+  --color-line: var(--color-line);
+  --color-line-soft: var(--color-line-soft);
+  --color-bone: var(--color-bone);
+  --color-bone-dim: var(--color-bone-dim);
+  --color-bone-faint: var(--color-bone-faint);
+  --color-signal: var(--color-signal);
+  --color-signal-soft: var(--color-signal-soft);
+  --color-signal-dim: var(--color-signal-dim);
 
   --animate-marquee: marquee 32s linear infinite;
   --animate-spin-slow: spin 22s linear infinite;
@@ -34,6 +67,54 @@
   to {
     transform: translateX(-50%);
   }
+}
+
+@keyframes orbitCw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbitCcw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.animate-orbit-cw-fast {
+  animation: orbitCw 12s linear infinite;
+  transform-origin: center center;
+}
+
+.animate-orbit-ccw-fast {
+  animation: orbitCcw 12s linear infinite;
+  transform-origin: center center;
+}
+
+.animate-orbit-cw-mid {
+  animation: orbitCw 18s linear infinite;
+  transform-origin: center center;
+}
+
+.animate-orbit-ccw-mid {
+  animation: orbitCcw 18s linear infinite;
+  transform-origin: center center;
+}
+
+.animate-orbit-cw-slow {
+  animation: orbitCw 26s linear infinite;
+  transform-origin: center center;
+}
+
+.animate-orbit-ccw-slow {
+  animation: orbitCcw 26s linear infinite;
+  transform-origin: center center;
 }
 
 html {
@@ -60,6 +141,7 @@ body {
   color: var(--color-bone);
   font-family: var(--font-body);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button,
@@ -82,7 +164,7 @@ input:disabled,
 
 ::selection {
   background-color: var(--color-signal);
-  color: var(--color-bone);
+  color: #ffffff;
 }
 
 :focus-visible {
@@ -105,6 +187,13 @@ input:disabled,
     linear-gradient(to right, rgba(243, 242, 238, 0.045) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(243, 242, 238, 0.045) 1px, transparent 1px);
   background-size: 56px 56px;
+}
+
+html[data-theme="light"] .grid-field,
+html.light .grid-field {
+  background-image:
+    linear-gradient(to right, rgba(20, 21, 26, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 21, 26, 0.06) 1px, transparent 1px);
 }
 
 .text-balance {
