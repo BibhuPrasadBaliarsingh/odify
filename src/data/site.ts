@@ -10,11 +10,13 @@ export const site = {
 } as const
 
 export const navLinks = [
-  { label: 'Home', href: '#home' },
   { label: 'Services', href: '#services' },
-  { label: 'About', href: '#about' },
   { label: 'Work', href: '#work' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'Testimonials', href: '#testimonials' },
   { label: 'Process', href: '#process' },
+  { label: 'About', href: '#about' },
+  { label: 'FAQ', href: '#faq' },
   { label: 'Contact', href: '#contact' },
 ] as const
 
@@ -29,20 +31,22 @@ export const footerColumns = [
     heading: 'Company',
     links: [
       { label: 'About', href: '#about' },
-      { label: 'Work', href: '#work' },
-      { label: 'Services', href: '#services' },
-      { label: 'Contact', href: '#contact' },
+      { label: 'Work & Case Studies', href: '#work' },
+      { label: 'Pricing & Plans', href: '#pricing' },
+      { label: 'Client Reviews', href: '#testimonials' },
+      { label: 'FAQ', href: '#faq' },
+      { label: 'Contact Us', href: '#contact' },
     ],
   },
   {
     heading: 'Services',
     links: [
       { label: 'Web Development', href: '#services' },
-      { label: 'Branding', href: '#services' },
+      { label: 'Branding & Identity', href: '#services' },
       { label: 'Digital Marketing', href: '#services' },
-      { label: 'UI/UX', href: '#services' },
-      { label: 'SEO', href: '#services' },
-      { label: 'Automation', href: '#services' },
+      { label: 'UI/UX Design', href: '#services' },
+      { label: 'SEO & Performance', href: '#services' },
+      { label: 'Automation & AI', href: '#services' },
     ],
   },
 ] as const

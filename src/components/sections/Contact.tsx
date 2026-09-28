@@ -27,10 +27,37 @@ const initialState: FormState = {
 const inputClasses =
   'w-full rounded-xl border border-line bg-surface px-4 py-3.5 text-sm text-bone placeholder:text-bone-faint outline-none transition-colors duration-200 focus:border-signal-soft'
 
-export function Contact() {
-  const [form, setForm] = useState<FormState>(initialState)
+interface ContactProps {
+  selectedProjectType?: string
+}
+
+export function Contact({ selectedProjectType }: ContactProps) {
+  const [form, setForm] = useState<FormState>(() => {
+    let defaultType = ''
+    if (selectedProjectType) {
+      const match = projectTypes.find(
+        (t) => t.toLowerCase() === selectedProjectType.toLowerCase()
+      )
+      defaultType = match || (['Fintech', 'Commerce', 'SaaS'].includes(selectedProjectType) ? 'Website' : '')
+    }
+    return { ...initialState, projectType: defaultType }
+  })
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({})
   const [submitted, setSubmitted] = useState(false)
+  const [prevProp, setPrevProp] = useState(selectedProjectType)
+
+  if (selectedProjectType !== prevProp) {
+    setPrevProp(selectedProjectType)
+    if (selectedProjectType) {
+      const match = projectTypes.find(
+        (t) => t.toLowerCase() === selectedProjectType.toLowerCase()
+      )
+      const mapped = match || (['Fintech', 'Commerce', 'SaaS'].includes(selectedProjectType) ? 'Website' : '')
+      if (mapped) {
+        setForm((f) => ({ ...f, projectType: mapped }))
+      }
+    }
+  }
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }))
