@@ -1,54 +1,68 @@
 import type { LucideIcon } from 'lucide-react'
-import { Boxes, Compass, LineChart, MonitorSmartphone, Search, Sparkles } from 'lucide-react'
+import {
+  BrainCircuit,
+  Code2,
+  Cpu,
+  Palette,
+  Smartphone,
+  Workflow,
+} from 'lucide-react'
 
 export interface Service {
   index: string
   icon: LucideIcon
   title: string
   description: string
+  features: string[]
 }
 
 export const services: Service[] = [
   {
     index: '01',
-    icon: MonitorSmartphone,
-    title: 'Web Design & Development',
+    icon: Code2,
+    title: 'Web Development',
     description:
-      'High-performance websites that look exceptional and convert visitors into customers.',
+      'High-performance web applications, scalable SaaS architectures, and modern web platforms built for speed, SEO, and enterprise reliability.',
+    features: ['Next.js & React Ecosystem', 'High Speed & Technical SEO', 'Scalable Microservices API'],
   },
   {
     index: '02',
-    icon: Sparkles,
-    title: 'Brand Identity',
+    icon: Smartphone,
+    title: 'Mobile App Development',
     description:
-      'Distinctive visual identities that make businesses recognizable and memorable.',
+      'Native and cross-platform mobile apps for iOS and Android engineered with smooth 60fps animations, offline resilience, and intuitive gesture navigation.',
+    features: ['React Native & Expo', 'iOS & Android Parity', 'Real-time State Sync'],
   },
   {
     index: '03',
-    icon: LineChart,
-    title: 'Digital Marketing',
+    icon: BrainCircuit,
+    title: 'AI Solutions',
     description:
-      'Data-driven campaigns designed to increase visibility, engagement and growth.',
+      'Cutting-edge generative AI integrations, LLM workflows, custom agent architectures, and computer vision systems that unlock business intelligence.',
+    features: ['Gemini & NVIDIA AI APIs', 'Custom RAG Pipelines', 'Automated Intelligence'],
   },
   {
     index: '04',
-    icon: Compass,
-    title: 'UI/UX Design',
+    icon: Cpu,
+    title: 'Custom Software',
     description:
-      'Intuitive digital experiences designed around real users and business goals.',
+      'Tailored enterprise software, custom dashboards, internal tools, and high-throughput backend services designed around unique business logic.',
+    features: ['Node.js & Distributed Systems', 'MongoDB & SQL Databases', 'Cloud Micro-architectures'],
   },
   {
     index: '05',
-    icon: Search,
-    title: 'SEO & Growth',
+    icon: Palette,
+    title: 'UI/UX Development',
     description:
-      'Technical SEO, content strategy and optimization that build sustainable organic growth.',
+      'Design systems, interactive prototypes, and production design implementations focused on friction-free customer conversion and user delight.',
+    features: ['Interactive Prototypes', 'Modern Design Systems', 'Accessibility & Motion'],
   },
   {
     index: '06',
-    icon: Boxes,
-    title: 'Automation & Technology',
+    icon: Workflow,
+    title: 'Business Automation',
     description:
-      'Smart digital systems and automation that reduce manual work and improve efficiency.',
+      'End-to-end workflow automation, data synchronization, API integrations, and event-driven pipelines that eliminate repetitive operational overhead.',
+    features: ['API Integrations & Webhooks', 'Automated Operations', 'Real-time Monitoring'],
   },
 ]

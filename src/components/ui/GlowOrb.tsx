@@ -12,7 +12,7 @@ export function GlowOrb({ className = '', size = 480 }: GlowOrbProps) {
         width: size,
         height: size,
         background:
-          'radial-gradient(circle at 30% 30%, rgba(77,91,255,0.35), rgba(77,91,255,0) 70%)',
+          'radial-gradient(circle at 40% 40%, rgba(245,158,11,0.22), rgba(251,191,36,0.12) 45%, rgba(245,158,11,0) 70%)',
       }}
     />
   )

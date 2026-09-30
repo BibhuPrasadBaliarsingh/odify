@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'lenis/dist/lenis.css';
 
 @import '@fontsource-variable/space-grotesk';
 @import '@fontsource-variable/manrope';
@@ -10,18 +11,18 @@
   --font-body: 'Manrope Variable', 'Manrope', sans-serif;
   --font-accent: 'Instrument Serif', serif;
 
-  --color-ink: #0a0b0d;
-  --color-ink-soft: #101116;
-  --color-surface: #15161c;
-  --color-surface-soft: #1b1c23;
-  --color-line: #2a2b33;
-  --color-line-soft: #212229;
-  --color-bone: #f3f2ee;
-  --color-bone-dim: #a7a8b0;
-  --color-bone-faint: #6c6d76;
-  --color-signal: #4d5bff;
-  --color-signal-soft: #7d88ff;
-  --color-signal-dim: #1c2050;
+  --color-ink: #ffffff;
+  --color-ink-soft: #f8f9fb;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f3f4f7;
+  --color-line: #e5e7eb;
+  --color-line-soft: #f0f1f4;
+  --color-bone: #0a0b0d;
+  --color-bone-dim: #3f414a;
+  --color-bone-faint: #787a86;
+  --color-signal: #f59e0b;
+  --color-signal-soft: #d97706;
+  --color-signal-dim: #fef3c7;
 
   --animate-marquee: marquee 32s linear infinite;
   --animate-spin-slow: spin 22s linear infinite;
@@ -37,7 +38,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -102,8 +103,8 @@ input:disabled,
 /* fine grid backdrop used behind key sections */
 .grid-field {
   background-image:
-    linear-gradient(to right, rgba(243, 242, 238, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(243, 242, 238, 0.045) 1px, transparent 1px);
+    linear-gradient(to right, rgba(10, 11, 13, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 11, 13, 0.045) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 

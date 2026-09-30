@@ -14,7 +14,7 @@ export function WhyOdify() {
             <Reveal key={item.title} delay={i * 0.08} className="flex flex-col gap-4">
               <span
                 aria-hidden="true"
-                className="h-px w-10 bg-signal-soft"
+                className="h-0.5 w-10 rounded-full bg-signal"
               />
               <h3 className="font-display text-lg font-medium text-bone">{item.title}</h3>
               <p className="text-sm leading-relaxed text-bone-dim">{item.description}</p>

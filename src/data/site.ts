@@ -12,9 +12,10 @@ export const site = {
 export const navLinks = [
   { label: 'Home', href: '#home' },
   { label: 'Services', href: '#services' },
-  { label: 'About', href: '#about' },
+  { label: 'Technologies', href: '#technologies' },
   { label: 'Work', href: '#work' },
   { label: 'Process', href: '#process' },
+  { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ] as const
 
@@ -22,6 +23,7 @@ export const socialLinks = [
   { label: 'Instagram', href: 'https://instagram.com/odify.agency' },
   { label: 'LinkedIn', href: 'https://linkedin.com/company/odify' },
   { label: 'X', href: 'https://x.com/odifyagency' },
+  { label: 'GitHub', href: 'https://github.com' },
 ] as const
 
 export const footerColumns = [
@@ -30,7 +32,8 @@ export const footerColumns = [
     links: [
       { label: 'About', href: '#about' },
       { label: 'Work', href: '#work' },
-      { label: 'Services', href: '#services' },
+      { label: 'Technologies', href: '#technologies' },
+      { label: 'Process', href: '#process' },
       { label: 'Contact', href: '#contact' },
     ],
   },
@@ -38,11 +41,11 @@ export const footerColumns = [
     heading: 'Services',
     links: [
       { label: 'Web Development', href: '#services' },
-      { label: 'Branding', href: '#services' },
-      { label: 'Digital Marketing', href: '#services' },
-      { label: 'UI/UX', href: '#services' },
-      { label: 'SEO', href: '#services' },
-      { label: 'Automation', href: '#services' },
+      { label: 'Mobile App Development', href: '#services' },
+      { label: 'AI Solutions', href: '#services' },
+      { label: 'Custom Software', href: '#services' },
+      { label: 'UI/UX Development', href: '#services' },
+      { label: 'Business Automation', href: '#services' },
     ],
   },
 ] as const

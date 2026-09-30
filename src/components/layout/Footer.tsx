@@ -7,9 +7,10 @@ export function Footer() {
     <footer className="border-t border-line bg-ink-soft">
       <Container className="grid gap-14 py-16 lg:grid-cols-[1.4fr_1fr_1fr] lg:gap-10 lg:py-20">
         <div className="flex flex-col gap-5">
-          <span className="font-display text-2xl font-semibold tracking-tight text-bone">
-            {site.name.toUpperCase()}
-          </span>
+          <div className="flex items-center gap-1.5 font-display text-2xl font-semibold tracking-tight text-bone">
+            <span>{site.name.toUpperCase()}</span>
+            <span className="h-2 w-2 rounded-full bg-signal" />
+          </div>
           <p className="max-w-xs text-sm leading-relaxed text-bone-dim">{site.tagline}</p>
           <div className="flex items-center gap-4 pt-2">
             {socialLinks.map((s) => (
@@ -60,7 +61,7 @@ export function Footer() {
           </a>
           <a
             href={`mailto:${site.email}`}
-            className="flex items-center gap-1 text-xs text-bone-dim transition-colors hover:text-bone"
+            className="flex items-center gap-1 text-xs text-bone-dim transition-colors hover:text-signal-soft"
           >
             {site.email}
             <ArrowUpRight size={13} />

@@ -16,10 +16,10 @@ interface ButtonProps {
 
 const variantStyles: Record<Variant, string> = {
   primary:
-    'bg-bone text-ink hover:bg-signal hover:text-bone shadow-[0_0_0_1px_rgba(243,242,238,0.08)]',
+    'bg-signal text-[#0a0b0d] font-semibold hover:bg-bone hover:text-white shadow-[0_2px_12px_rgba(245,158,11,0.28)]',
   secondary:
-    'border border-line text-bone hover:border-bone-dim bg-transparent',
-  ghost: 'text-bone-dim hover:text-bone bg-transparent',
+    'border border-line text-bone hover:border-bone hover:bg-surface-soft bg-transparent',
+  ghost: 'text-bone-dim hover:text-bone hover:bg-surface-soft/60 bg-transparent',
 }
 
 export function Button({

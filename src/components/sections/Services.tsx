@@ -1,53 +1,107 @@
-import { motion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowUpRight } from 'lucide-react'
+import { useEffect, useRef } from 'react'
 import { Container } from '@/components/ui/Container'
-import { Reveal } from '@/components/ui/Reveal'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { services } from '@/data/services'
+import { scrollToTarget } from '@/lib/lenis'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export function Services() {
-  return (
-    <section id="services" className="py-24 sm:py-32">
-      <Container>
-        <SectionHeading
-          heading="What we do"
-          subheading="From strategy to execution, we create digital systems designed to help your business grow."
-        />
+  const gridRef = useRef<HTMLDivElement>(null)
 
-        <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, i) => {
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion || !gridRef.current) return
+
+    const ctx = gsap.context(() => {
+      const cards = gridRef.current?.children
+      if (cards && cards.length > 0) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            stagger: 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: gridRef.current,
+              start: 'top 82%',
+              once: true,
+            },
+          }
+        )
+      }
+    }, gridRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  return (
+    <section id="services" className="relative py-24 sm:py-32">
+      <Container>
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <SectionHeading
+            eyebrow="Core Capabilities"
+            heading="Engineering &amp; design services built for market leadership"
+            subheading="From custom web platforms and cross-platform apps to bespoke AI workflows and systems architecture."
+          />
+        </div>
+
+        <div
+          ref={gridRef}
+          className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {services.map((service) => {
             const Icon = service.icon
             return (
-              <Reveal key={service.title} delay={i * 0.05} className="h-full">
-                <motion.article
-                  whileHover="hover"
-                  className="group relative flex h-full flex-col justify-between gap-10 bg-ink p-8 transition-colors duration-300 hover:bg-surface"
-                >
-                  <div className="flex items-start justify-between">
-                    <span className="font-display text-sm text-bone-faint">{service.index}</span>
-                    <motion.span
-                      variants={{ hover: { rotate: -8, scale: 1.08 } }}
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-line-soft text-signal-soft"
-                    >
-                      <Icon size={19} strokeWidth={1.75} />
-                    </motion.span>
+              <article
+                key={service.title}
+                onClick={() => scrollToTarget('#contact')}
+                className="group relative flex h-full cursor-pointer flex-col justify-between rounded-3xl border border-line bg-surface p-8 shadow-xs transition-all duration-300 hover:-translate-y-2 hover:border-signal/40 hover:shadow-[0_16px_36px_rgba(245,158,11,0.08)]"
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-semibold tracking-wider text-bone-faint">
+                      {service.index}
+                    </span>
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-signal/25 bg-signal-dim/60 text-signal-soft transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-signal group-hover:text-[#0a0b0d] group-hover:shadow-sm">
+                      <Icon size={20} strokeWidth={1.8} />
+                    </span>
                   </div>
 
-                  <div>
-                    <h3 className="font-display text-xl font-medium text-bone">{service.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-bone-dim">
-                      {service.description}
-                    </p>
-                  </div>
+                  <h3 className="mt-6 font-display text-xl font-semibold text-bone transition-colors group-hover:text-signal-soft">
+                    {service.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-bone-dim">
+                    {service.description}
+                  </p>
 
-                  <motion.div
-                    variants={{ hover: { x: 4, y: -4 } }}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-line-soft text-bone-dim transition-colors duration-300 group-hover:border-signal-soft group-hover:text-bone"
-                  >
-                    <ArrowUpRight size={15} />
-                  </motion.div>
-                </motion.article>
-              </Reveal>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {service.features.map((feat) => (
+                      <span
+                        key={feat}
+                        className="rounded-lg border border-line-soft bg-ink-soft px-2.5 py-1 text-[11px] font-medium text-bone-dim"
+                      >
+                        {feat}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-8 flex items-center justify-between border-t border-line-soft pt-4">
+                  <span className="font-display text-xs font-semibold uppercase tracking-wider text-bone-faint transition-colors group-hover:text-bone">
+                    Inquire Capability
+                  </span>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-bone-dim transition-all duration-300 group-hover:border-signal group-hover:bg-signal group-hover:text-[#0a0b0d]">
+                    <ArrowUpRight size={14} />
+                  </span>
+                </div>
+              </article>
             )
           })}
         </div>

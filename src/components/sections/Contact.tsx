@@ -1,10 +1,20 @@
-import { motion } from 'framer-motion'
-import { ArrowRight, Check, Mail } from 'lucide-react'
-import { type FormEvent, type ReactNode, useState } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import {
+  AlertCircle,
+  ArrowRight,
+  CheckCircle2,
+  Clock,
+  Loader2,
+  Mail,
+  Sparkles,
+} from 'lucide-react'
+import { type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react'
 import { Container } from '@/components/ui/Container'
-import { Reveal } from '@/components/ui/Reveal'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { projectTypes, site } from '@/data/site'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface FormState {
   name: string
@@ -24,83 +34,181 @@ const initialState: FormState = {
   message: '',
 }
 
-const inputClasses =
-  'w-full rounded-xl border border-line bg-surface px-4 py-3.5 text-sm text-bone placeholder:text-bone-faint outline-none transition-colors duration-200 focus:border-signal-soft'
-
 export function Contact() {
+  const containerRef = useRef<HTMLElement>(null)
   const [form, setForm] = useState<FormState>(initialState)
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({})
+  const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion || !containerRef.current) return
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        containerRef.current,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 82%',
+            once: true,
+          },
+        }
+      )
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }))
+    if (errors[key]) {
+      setErrors((prev) => {
+        const next = { ...prev }
+        delete next[key]
+        return next
+      })
+    }
   }
 
   function validate(): boolean {
     const next: Partial<Record<keyof FormState, string>> = {}
-    if (!form.name.trim()) next.name = 'Please enter your name.'
+    if (!form.name.trim()) next.name = 'Please provide your name.'
     if (!form.email.trim()) {
-      next.email = 'Please enter your email.'
+      next.email = 'Please provide your work email.'
     } else if (!/^\S+@\S+\.\S+$/.test(form.email)) {
-      next.email = 'Please enter a valid email address.'
+      next.email = 'Please provide a valid email address.'
     }
-    if (!form.projectType) next.projectType = 'Please select a project type.'
-    if (!form.message.trim()) next.message = 'Tell us a little about your project.'
+    if (!form.projectType) next.projectType = 'Please select a service or project category.'
+    if (!form.message.trim()) next.message = 'Please share a brief summary of your project.'
+
     setErrors(next)
     return Object.keys(next).length === 0
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    if (validate()) {
+    setSubmitError(null)
+
+    if (!validate()) return
+
+    setLoading(true)
+    try {
+      // Simulated robust API post with error handling safety
+      await new Promise((resolve) => setTimeout(resolve, 850))
       setSubmitted(true)
+    } catch {
+      setSubmitError('Unable to send inquiry. Please check your connection or email us directly.')
+    } finally {
+      setLoading(false)
     }
   }
 
-  return (
-    <section id="contact" className="py-24 sm:py-32">
-      <Container className="grid gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-        <div>
-          <SectionHeading
-            heading="Let's start a project"
-            subheading="Share a few details and we'll get back to you within one business day."
-          />
+  const inputBase =
+    'w-full rounded-xl border bg-surface px-4 py-3.5 text-sm text-bone placeholder:text-bone-faint outline-none transition-all duration-200 focus:ring-2'
 
-          <Reveal delay={0.15} className="mt-12 flex flex-col gap-6">
-            <div>
-              <span className="font-display text-xs font-medium uppercase tracking-[0.2em] text-bone-faint">
-                {site.name}
-              </span>
-              <p className="mt-1 text-sm text-bone-dim">Digital Agency</p>
+  return (
+    <section ref={containerRef} id="contact" className="relative py-24 sm:py-32">
+      <Container className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+        {/* Left Column: Direct Info & Commitments */}
+        <div className="flex flex-col justify-between">
+          <div>
+            <SectionHeading
+              eyebrow="Initiate Project"
+              heading="Let's build something exceptional together"
+              subheading="Share your roadmap or technical challenge. We evaluate scope, feasibility, and sprint timelines within one business day."
+            />
+
+            <div className="mt-12 flex flex-col gap-6">
+              <a
+                href={`mailto:${site.email}`}
+                className="group flex w-fit items-center gap-3 rounded-2xl border border-line bg-surface p-4 transition-all hover:border-signal/50 hover:shadow-xs"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-signal-dim text-signal-soft transition-transform group-hover:scale-110">
+                  <Mail size={18} />
+                </span>
+                <div>
+                  <span className="font-display text-xs text-bone-faint font-medium">Direct Inbox</span>
+                  <p className="font-display text-sm font-semibold text-bone group-hover:text-signal-soft">
+                    {site.email}
+                  </p>
+                </div>
+              </a>
+
+              <div className="flex flex-col gap-3 rounded-2xl border border-line-soft bg-ink-soft p-5">
+                <div className="flex items-center gap-2.5 text-xs font-semibold text-bone">
+                  <Clock size={15} className="text-signal-soft" />
+                  <span>Rapid Intake Response</span>
+                </div>
+                <p className="text-xs leading-relaxed text-bone-dim">
+                  Inquiries receive an NDA and preliminary architectural assessment within 24 hours.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3 rounded-2xl border border-line-soft bg-ink-soft p-5">
+                <div className="flex items-center gap-2.5 text-xs font-semibold text-bone">
+                  <Sparkles size={15} className="text-signal-soft" />
+                  <span>Technical Fit Guarantee</span>
+                </div>
+                <p className="text-xs leading-relaxed text-bone-dim">
+                  We only accept client engagements where we are confident in delivering outsized commercial impact.
+                </p>
+              </div>
             </div>
-            <a
-              href={`mailto:${site.email}`}
-              className="flex w-fit items-center gap-2.5 text-base text-bone transition-colors hover:text-signal-soft"
-            >
-              <Mail size={17} />
-              {site.email}
-            </a>
-          </Reveal>
+          </div>
         </div>
 
-        <Reveal delay={0.1}>
+        {/* Right Column: Contact Form with States */}
+        <div className="rounded-3xl border border-line bg-surface p-8 shadow-xs sm:p-10">
           {submitted ? (
-            <div className="flex h-full min-h-[420px] flex-col items-center justify-center gap-4 rounded-3xl border border-line bg-surface p-10 text-center">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-signal/15 text-signal-soft">
-                <Check size={22} />
+            <div className="flex min-h-[420px] flex-col items-center justify-center gap-4 text-center">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-signal-dim text-signal-soft">
+                <CheckCircle2 size={32} />
               </span>
-              <h3 className="font-display text-xl font-medium text-bone">Inquiry sent</h3>
-              <p className="max-w-sm text-sm leading-relaxed text-bone-dim">
-                Thanks for reaching out. We'll review your project and get back to you within
-                one business day.
+              <h3 className="font-display text-2xl font-semibold text-bone">
+                Project inquiry received
+              </h3>
+              <p className="max-w-md text-sm leading-relaxed text-bone-dim">
+                Thank you for reaching out, <span className="font-medium text-bone">{form.name}</span>.
+                Our engineering team is reviewing your project details and will be in touch at{' '}
+                <span className="font-mono text-bone">{form.email}</span> within 24 hours.
               </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSubmitted(false)
+                  setForm(initialState)
+                }}
+                className="mt-4 rounded-full border border-line px-6 py-2.5 font-display text-xs font-semibold text-bone hover:border-bone"
+              >
+                Send another message
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate className="grid gap-5 sm:grid-cols-2">
-              <Field label="Name" htmlFor="name" error={errors.name}>
+              {submitError ? (
+                <div className="sm:col-span-2 flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 p-4 text-xs font-medium text-red-700">
+                  <AlertCircle size={16} className="shrink-0" />
+                  <span>{submitError}</span>
+                </div>
+              ) : null}
+
+              {/* Name */}
+              <Field label="Your Name *" htmlFor="name" error={errors.name}>
                 <input
                   id="name"
-                  className={inputClasses}
+                  className={`${inputBase} ${
+                    errors.name
+                      ? 'border-red-400 focus:border-red-400 focus:ring-red-100'
+                      : 'border-line focus:border-signal focus:ring-signal/20'
+                  }`}
                   value={form.name}
                   onChange={(e) => update('name', e.target.value)}
                   placeholder="Jordan Lee"
@@ -108,55 +216,67 @@ export function Contact() {
                 />
               </Field>
 
-              <Field label="Company" htmlFor="company">
+              {/* Company */}
+              <Field label="Company / Organization" htmlFor="company">
                 <input
                   id="company"
-                  className={inputClasses}
+                  className={`${inputBase} border-line focus:border-signal focus:ring-signal/20`}
                   value={form.company}
                   onChange={(e) => update('company', e.target.value)}
-                  placeholder="Company name"
+                  placeholder="Acme Technologies"
                   autoComplete="organization"
                 />
               </Field>
 
-              <Field label="Email" htmlFor="email" error={errors.email}>
+              {/* Email */}
+              <Field label="Work Email *" htmlFor="email" error={errors.email}>
                 <input
                   id="email"
                   type="email"
-                  className={inputClasses}
+                  className={`${inputBase} ${
+                    errors.email
+                      ? 'border-red-400 focus:border-red-400 focus:ring-red-100'
+                      : 'border-line focus:border-signal focus:ring-signal/20'
+                  }`}
                   value={form.email}
                   onChange={(e) => update('email', e.target.value)}
-                  placeholder="you@company.com"
+                  placeholder="jordan@acme.com"
                   autoComplete="email"
                 />
               </Field>
 
-              <Field label="Phone" htmlFor="phone">
+              {/* Phone */}
+              <Field label="Phone Number" htmlFor="phone">
                 <input
                   id="phone"
                   type="tel"
-                  className={inputClasses}
+                  className={`${inputBase} border-line focus:border-signal focus:ring-signal/20`}
                   value={form.phone}
                   onChange={(e) => update('phone', e.target.value)}
-                  placeholder="Optional"
+                  placeholder="+1 (555) 000-0000"
                   autoComplete="tel"
                 />
               </Field>
 
+              {/* Project Type */}
               <Field
-                label="What can we help you with?"
+                label="Capability or Service Needed *"
                 htmlFor="projectType"
                 error={errors.projectType}
                 className="sm:col-span-2"
               >
                 <select
                   id="projectType"
-                  className={`${inputClasses} appearance-none`}
+                  className={`${inputBase} appearance-none ${
+                    errors.projectType
+                      ? 'border-red-400 focus:border-red-400 focus:ring-red-100'
+                      : 'border-line focus:border-signal focus:ring-signal/20'
+                  }`}
                   value={form.projectType}
                   onChange={(e) => update('projectType', e.target.value)}
                 >
                   <option value="" disabled>
-                    Select a project type
+                    Select project discipline
                   </option>
                   {projectTypes.map((type) => (
                     <option key={type} value={type}>
@@ -166,33 +286,50 @@ export function Contact() {
                 </select>
               </Field>
 
+              {/* Message */}
               <Field
-                label="Tell us about your project"
+                label="Project Scope & Objectives *"
                 htmlFor="message"
                 error={errors.message}
                 className="sm:col-span-2"
               >
                 <textarea
                   id="message"
-                  rows={5}
-                  className={`${inputClasses} resize-none`}
+                  rows={4}
+                  className={`${inputBase} resize-none ${
+                    errors.message
+                      ? 'border-red-400 focus:border-red-400 focus:ring-red-100'
+                      : 'border-line focus:border-signal focus:ring-signal/20'
+                  }`}
                   value={form.message}
                   onChange={(e) => update('message', e.target.value)}
-                  placeholder="What are you building, and what does success look like?"
+                  placeholder="Tell us what you're building, target timelines, and core technical requirements..."
                 />
               </Field>
 
-              <motion.button
-                whileTap={{ scale: 0.98 }}
-                type="submit"
-                className="group mt-2 inline-flex w-fit items-center gap-2.5 rounded-full bg-bone px-7 py-3.5 font-display text-sm font-medium text-ink transition-colors duration-300 hover:bg-signal hover:text-bone sm:col-span-2"
-              >
-                Send Project Inquiry
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
-              </motion.button>
+              {/* Submit CTA with Loading State */}
+              <div className="sm:col-span-2 mt-2">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-signal px-8 py-4 font-display text-sm font-semibold text-[#0a0b0d] shadow-[0_2px_14px_rgba(245,158,11,0.25)] transition-all duration-300 hover:bg-bone hover:text-white disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer sm:w-auto"
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" />
+                      <span>Sending inquiry...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Submit Project Brief</span>
+                      <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    </>
+                  )}
+                </button>
+              </div>
             </form>
           )}
-        </Reveal>
+        </div>
       </Container>
     </section>
   )
@@ -213,12 +350,12 @@ function Field({
 }) {
   return (
     <div className={`flex flex-col gap-2 ${className}`}>
-      <label htmlFor={htmlFor} className="text-sm text-bone-dim">
+      <label htmlFor={htmlFor} className="font-display text-xs font-semibold text-bone">
         {label}
       </label>
       {children}
       {error ? (
-        <span role="alert" className="text-xs text-red-400">
+        <span role="alert" className="text-xs font-medium text-red-600">
           {error}
         </span>
       ) : null}

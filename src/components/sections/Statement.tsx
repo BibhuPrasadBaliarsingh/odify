@@ -13,7 +13,7 @@ export function Statement() {
   })
 
   return (
-    <section className="border-y border-line-soft py-28 sm:py-36" ref={ref}>
+    <section className="border-y border-line-soft bg-ink-soft py-28 sm:py-36" ref={ref}>
       <Container>
         <p className="max-w-4xl text-balance font-display text-3xl font-medium leading-[1.25] sm:text-5xl lg:text-[3.4rem]">
           {words.map((word, i) => {
@@ -52,7 +52,7 @@ function Word({
   const opacity = useTransform(progress, range, [0.2, 1])
   return (
     <span className="relative mr-3 inline-block">
-      <span className="text-bone-faint">{children}</span>
+      <span className="text-bone-faint/35">{children}</span>
       <motion.span
         style={{ opacity }}
         className="absolute inset-0 text-bone"
