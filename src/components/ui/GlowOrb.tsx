@@ -1,18 +1,22 @@
 interface GlowOrbProps {
   className?: string
   size?: number
+  gradient?: string
 }
 
-export function GlowOrb({ className = '', size = 480 }: GlowOrbProps) {
+export function GlowOrb({ className = '', size = 480, gradient }: GlowOrbProps) {
+  const bg =
+    gradient ||
+    'radial-gradient(circle at 45% 45%, rgba(255,49,49,0.38) 0%, rgba(255,145,77,0.28) 45%, rgba(255,145,77,0) 72%)'
+
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute rounded-full blur-[100px] ${className}`}
+      className={`pointer-events-none absolute rounded-full blur-[80px] sm:blur-[110px] ${className}`}
       style={{
         width: size,
         height: size,
-        background:
-          'radial-gradient(circle at 40% 40%, rgba(245,158,11,0.22), rgba(251,191,36,0.12) 45%, rgba(245,158,11,0) 70%)',
+        background: bg,
       }}
     />
   )

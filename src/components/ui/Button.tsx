@@ -8,6 +8,7 @@ interface ButtonProps {
   variant?: Variant
   href?: string
   className?: string
+  style?: React.CSSProperties
   type?: 'button' | 'submit' | 'reset'
   disabled?: boolean
   ariaLabel?: string
@@ -27,6 +28,7 @@ export function Button({
   variant = 'primary',
   href,
   className = '',
+  style,
   type = 'button',
   disabled,
   ariaLabel,
@@ -40,6 +42,7 @@ export function Button({
         href={href}
         whileTap={{ scale: 0.97 }}
         className={classes}
+        style={style}
         aria-label={ariaLabel}
         onClick={onClick}
       >
@@ -52,6 +55,7 @@ export function Button({
     <motion.button
       whileTap={{ scale: 0.97 }}
       className={classes}
+      style={style}
       type={type}
       disabled={disabled}
       aria-label={ariaLabel}
