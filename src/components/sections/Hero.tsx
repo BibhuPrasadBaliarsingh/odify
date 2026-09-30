@@ -79,6 +79,22 @@ function HeroVisual() {
           </linearGradient>
         </defs>
 
+        {/* Soft glowing ambient circle behind the orbits filling the empty space */}
+        <circle
+          cx="210"
+          cy="210"
+          r="165"
+          fill="url(#heroSunsetGradient)"
+          fillOpacity="0.05"
+        />
+        <circle
+          cx="210"
+          cy="210"
+          r="115"
+          fill="url(#heroSunsetGradient)"
+          fillOpacity="0.09"
+        />
+
         {/* Orbit paths with gradient stroke */}
         <circle
           cx="210"
@@ -291,6 +307,15 @@ export function Hero() {
         className="pointer-events-none absolute -top-24 right-0 sm:right-10 w-[300px] sm:w-[550px] h-[300px] sm:h-[550px] rounded-full blur-[80px] sm:blur-[130px] opacity-40"
         style={{
           background: 'linear-gradient(135deg, rgba(255,49,49,0.35), rgba(255,145,77,0.25))',
+        }}
+      />
+
+      {/* Radiant mobile/tablet sunset gradient aura filling the center void */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[480px] h-[340px] sm:h-[480px] rounded-full blur-[80px] sm:blur-[110px] opacity-65 lg:hidden"
+        style={{
+          background: 'radial-gradient(circle, rgba(255,49,49,0.40) 0%, rgba(255,145,77,0.30) 45%, transparent 70%)',
         }}
       />
 
