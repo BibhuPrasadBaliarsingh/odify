@@ -4,7 +4,10 @@
 export const site = {
   name: 'Odify',
   domain: 'odify.agency',
-  email: 'hello@odify.agency',
+  email: 'odify.agency@gmail.com',
+  phone: '+91 7377714888',
+  phoneHref: 'tel:+917377714888',
+  whatsappHref: 'https://wa.me/917377714888',
   tagline: 'Digital experiences for ambitious businesses.',
   year: 2026,
 } as const
@@ -20,10 +23,10 @@ export const navLinks = [
 ] as const
 
 export const socialLinks = [
-  { label: 'Instagram', href: 'https://instagram.com/odify.agency' },
+  { label: 'Instagram', href: 'https://www.instagram.com/odify.agency?stkn=aHNnMjlhMTlqcjhw&utm_source=qr' },
+  { label: 'Facebook', href: 'https://www.facebook.com/share/1GPGPxKM64/?mibextid=wwXIfr' },
   { label: 'LinkedIn', href: 'https://linkedin.com/company/odify' },
   { label: 'X', href: 'https://x.com/odifyagency' },
-  { label: 'GitHub', href: 'https://github.com' },
 ] as const
 
 export const footerColumns = [
@@ -46,6 +49,7 @@ export const footerColumns = [
       { label: 'Custom Software', href: '#services' },
       { label: 'UI/UX Development', href: '#services' },
       { label: 'Business Automation', href: '#services' },
+      { label: 'Digital Marketing', href: '#services' },
     ],
   },
 ] as const
@@ -73,11 +77,13 @@ export const differentiators = [
 ] as const
 
 export const projectTypes = [
-  'Website',
-  'Branding',
-  'Marketing',
-  'UI/UX',
-  'SEO',
-  'Automation',
+  'Web Development',
+  'Mobile App Development',
+  'AI Solutions',
+  'Custom Software',
+  'UI/UX Development',
+  'Business Automation',
+  'Digital Marketing',
+  'SEO & Performance Growth',
   'Other',
 ] as const

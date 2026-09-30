@@ -1,4 +1,4 @@
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Mail, Phone } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { footerColumns, site, socialLinks } from '@/data/site'
 
@@ -12,7 +12,23 @@ export function Footer() {
             <span className="h-2 w-2 rounded-full bg-signal" />
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-bone-dim">{site.tagline}</p>
-          <div className="flex items-center gap-4 pt-2">
+          <div className="flex flex-col gap-2 pt-1">
+            <a
+              href={`mailto:${site.email}`}
+              className="flex items-center gap-2 font-display text-sm font-semibold text-bone hover:text-signal-soft transition-colors w-fit"
+            >
+              <Mail size={15} className="text-signal-soft" />
+              <span>{site.email}</span>
+            </a>
+            <a
+              href={site.phoneHref}
+              className="flex items-center gap-2 font-display text-sm font-semibold text-bone hover:text-signal-soft transition-colors w-fit"
+            >
+              <Phone size={15} className="text-signal-soft" />
+              <span>{site.phone}</span>
+            </a>
+          </div>
+          <div className="flex items-center gap-4 pt-1">
             {socialLinks.map((s) => (
               <a
                 key={s.label}
@@ -52,12 +68,19 @@ export function Footer() {
         <p className="text-xs text-bone-faint">
           &copy; {site.year} {site.name}. All rights reserved.
         </p>
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center gap-6">
           <a href="#" className="text-xs text-bone-faint transition-colors hover:text-bone-dim">
             Privacy Policy
           </a>
           <a href="#" className="text-xs text-bone-faint transition-colors hover:text-bone-dim">
             Terms &amp; Conditions
+          </a>
+          <a
+            href={site.phoneHref}
+            className="flex items-center gap-1.5 text-xs text-bone-dim transition-colors hover:text-signal-soft"
+          >
+            <Phone size={12} className="text-signal-soft" />
+            {site.phone}
           </a>
           <a
             href={`mailto:${site.email}`}

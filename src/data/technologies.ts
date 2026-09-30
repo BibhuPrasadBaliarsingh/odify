@@ -61,4 +61,15 @@ export const technologyCategories: TechnologyCategory[] = [
       { name: 'NVIDIA AI APIs', role: 'Accelerated Model Inference & Compute', badge: 'Enterprise' },
     ],
   },
+  {
+    id: 'marketing',
+    name: 'Marketing & Analytics',
+    description: 'Data analytics, conversion tracking, SEO infrastructure, and automated advertising pipelines.',
+    items: [
+      { name: 'Google Analytics 4', role: 'Event Telemetry & Funnel Tracking', badge: 'Analytics' },
+      { name: 'Google Search Console', role: 'Technical SEO & Indexing Health', badge: 'SEO' },
+      { name: 'Meta Ads & Pixel', role: 'Targeted Multi-Channel Acquisition', badge: 'Paid' },
+      { name: 'PostHog', role: 'Product Analytics & Session Replay', badge: 'CRO' },
+    ],
+  },
 ]

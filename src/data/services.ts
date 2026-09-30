@@ -5,6 +5,7 @@ import {
   Cpu,
   Palette,
   Smartphone,
+  TrendingUp,
   Workflow,
 } from 'lucide-react'
 
@@ -64,5 +65,13 @@ export const services: Service[] = [
     description:
       'End-to-end workflow automation, data synchronization, API integrations, and event-driven pipelines that eliminate repetitive operational overhead.',
     features: ['API Integrations & Webhooks', 'Automated Operations', 'Real-time Monitoring'],
+  },
+  {
+    index: '07',
+    icon: TrendingUp,
+    title: 'Digital Marketing',
+    description:
+      'Data-driven performance marketing, multi-channel growth campaigns, technical SEO, and conversion rate optimization (CRO) that turn digital traffic into measurable enterprise revenue.',
+    features: ['Technical SEO & Organic Growth', 'Performance & Paid Campaigns', 'Conversion Rate Optimization (CRO)'],
   },
 ]

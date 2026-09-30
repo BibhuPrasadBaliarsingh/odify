@@ -7,6 +7,7 @@ import {
   Clock,
   Loader2,
   Mail,
+  Phone,
   Sparkles,
 } from 'lucide-react'
 import { type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react'
@@ -101,11 +102,35 @@ export function Contact() {
 
     setLoading(true)
     try {
-      // Simulated robust API post with error handling safety
-      await new Promise((resolve) => setTimeout(resolve, 850))
-      setSubmitted(true)
+      const response = await fetch('https://formsubmit.co/ajax/odify.agency@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: form.name,
+          company: form.company || 'Not specified',
+          email: form.email,
+          phone: form.phone || 'Not specified',
+          serviceNeeded: form.projectType,
+          message: form.message,
+          _subject: `New Project Inquiry: ${form.name} (${form.projectType})`,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      })
+
+      if (response.ok) {
+        setSubmitted(true)
+      } else {
+        const data = await response.json().catch(() => null)
+        throw new Error(data?.message || 'Form submission failed')
+      }
     } catch {
-      setSubmitError('Unable to send inquiry. Please check your connection or email us directly.')
+      setSubmitError(
+        'Unable to send inquiry automatically. Please email our team directly at odify.agency@gmail.com'
+      )
     } finally {
       setLoading(false)
     }
@@ -126,10 +151,10 @@ export function Contact() {
               subheading="Share your roadmap or technical challenge. We evaluate scope, feasibility, and sprint timelines within one business day."
             />
 
-            <div className="mt-12 flex flex-col gap-6">
+            <div className="mt-12 flex flex-col gap-4">
               <a
                 href={`mailto:${site.email}`}
-                className="group flex w-fit items-center gap-3 rounded-2xl border border-line bg-surface p-4 transition-all hover:border-signal/50 hover:shadow-xs"
+                className="group flex w-full sm:w-fit items-center gap-3 rounded-2xl border border-line bg-surface p-4 transition-all hover:border-signal/50 hover:shadow-xs"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-signal-dim text-signal-soft transition-transform group-hover:scale-110">
                   <Mail size={18} />
@@ -138,6 +163,21 @@ export function Contact() {
                   <span className="font-display text-xs text-bone-faint font-medium">Direct Inbox</span>
                   <p className="font-display text-sm font-semibold text-bone group-hover:text-signal-soft">
                     {site.email}
+                  </p>
+                </div>
+              </a>
+
+              <a
+                href={site.phoneHref}
+                className="group flex w-full sm:w-fit items-center gap-3 rounded-2xl border border-line bg-surface p-4 transition-all hover:border-signal/50 hover:shadow-xs"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-signal-dim text-signal-soft transition-transform group-hover:scale-110">
+                  <Phone size={18} />
+                </span>
+                <div>
+                  <span className="font-display text-xs text-bone-faint font-medium">Phone &amp; WhatsApp Support</span>
+                  <p className="font-display text-sm font-semibold text-bone group-hover:text-signal-soft">
+                    {site.phone}
                   </p>
                 </div>
               </a>

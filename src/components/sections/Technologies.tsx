@@ -1,6 +1,6 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { CheckCircle2, Code, Cpu, Database, Layers, Smartphone } from 'lucide-react'
+import { BarChart3, CheckCircle2, Code, Cpu, Database, Layers, Smartphone } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
@@ -14,6 +14,7 @@ const categoryIcons = {
   mobile: Smartphone,
   cloud: Layers,
   ai: Cpu,
+  marketing: BarChart3,
 }
 
 export function Technologies() {
