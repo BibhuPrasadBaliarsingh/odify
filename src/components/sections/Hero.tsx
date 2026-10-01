@@ -1,214 +1,102 @@
 import gsap from 'gsap'
-import { ArrowRight, ArrowUpRight, Cpu, Terminal } from 'lucide-react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Cloud,
+  Code2,
+  Layers,
+  Palette,
+  Smartphone,
+  TrendingUp,
+} from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
-import { GlowOrb } from '@/components/ui/GlowOrb'
+import { scrollToTarget } from '@/lib/lenis'
 
-function HeroVisual() {
-  const visualRef = useRef<HTMLDivElement>(null)
-  const floatOneRef = useRef<HTMLDivElement>(null)
-  const floatTwoRef = useRef<HTMLDivElement>(null)
-  const floatThreeRef = useRef<HTMLDivElement>(null)
+gsap.registerPlugin(ScrollTrigger)
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Gentle continuous floating for decorative tech chips
-      if (floatOneRef.current) {
-        gsap.to(floatOneRef.current, {
-          y: -10,
-          x: 4,
-          duration: 3.2,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        })
-      }
-      if (floatTwoRef.current) {
-        gsap.to(floatTwoRef.current, {
-          y: 12,
-          x: -5,
-          duration: 3.8,
-          delay: 0.4,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        })
-      }
-      if (floatThreeRef.current) {
-        gsap.to(floatThreeRef.current, {
-          y: -8,
-          duration: 2.9,
-          delay: 0.8,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        })
-      }
-    }, visualRef)
-
-    return () => ctx.revert()
-  }, [])
-
-  return (
-    <div
-      ref={visualRef}
-      className="hero-visual-container relative mx-auto aspect-square w-full max-w-[460px]"
-    >
-      {/* Radiant sunset gradient aura from #ff3131 to #ff914d filling the space */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] rounded-full blur-[70px] sm:blur-[100px] opacity-85"
-        style={{
-          background:
-            'radial-gradient(circle at 45% 45%, rgba(255, 49, 49, 0.42) 0%, rgba(255, 145, 77, 0.32) 42%, rgba(255, 145, 77, 0) 72%)',
-        }}
-      />
-      <GlowOrb className="left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-70" size={480} />
-
-      {/* Main geometric SVG orbit architecture */}
-      <svg viewBox="0 0 420 420" className="relative h-full w-full" aria-hidden="true">
-        <defs>
-          <linearGradient id="heroSunsetGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ff3131" />
-            <stop offset="100%" stopColor="#ff914d" />
-          </linearGradient>
-          <linearGradient id="heroSunsetFaint" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ff3131" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#ff914d" stopOpacity="0.4" />
-          </linearGradient>
-        </defs>
-
-        {/* Soft glowing ambient circle behind the orbits filling the empty space */}
-        <circle
-          cx="210"
-          cy="210"
-          r="165"
-          fill="url(#heroSunsetGradient)"
-          fillOpacity="0.05"
-        />
-        <circle
-          cx="210"
-          cy="210"
-          r="115"
-          fill="url(#heroSunsetGradient)"
-          fillOpacity="0.09"
-        />
-
-        {/* Orbit paths with gradient stroke */}
-        <circle
-          cx="210"
-          cy="210"
-          r="165"
-          fill="none"
-          stroke="url(#heroSunsetGradient)"
-          strokeWidth="1.2"
-          strokeDasharray="4 8"
-          strokeOpacity="0.4"
-        />
-        <circle
-          cx="210"
-          cy="210"
-          r="115"
-          fill="none"
-          stroke="url(#heroSunsetGradient)"
-          strokeWidth="1"
-          strokeOpacity="0.3"
-        />
-
-        {/* Orbiting accent nodes */}
-        <g className="origin-[210px_210px] animate-spin-slow">
-          <circle cx="325" cy="210" r="7.5" fill="#ff3131" />
-          <circle cx="95" cy="210" r="5" fill="#ff914d" />
-        </g>
-        <g
-          className="origin-[210px_210px]"
-          style={{ animation: 'spin 34s linear infinite reverse' }}
-        >
-          <rect
-            x="200"
-            y="40"
-            width="20"
-            height="20"
-            rx="6"
-            fill="none"
-            stroke="url(#heroSunsetGradient)"
-            strokeWidth="1.8"
-          />
-          <circle cx="210" cy="375" r="5" fill="#ff914d" />
-        </g>
-
-        {/* Central visual core card with vibrant #ff3131 to #ff914d gradient */}
-        <rect
-          x="146"
-          y="146"
-          width="128"
-          height="128"
-          rx="32"
-          fill="url(#heroSunsetGradient)"
-          className="shadow-[0_12px_32px_rgba(255,49,49,0.35)]"
-        />
-        <path
-          d="M184 210 L203 229 L238 191"
-          fill="none"
-          stroke="#ffffff"
-          strokeWidth="5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-
-      {/* Floating decorative tech element 1: Code status pill */}
-      <div
-        ref={floatOneRef}
-        className="hero-float absolute -left-2 sm:-left-4 top-10 sm:top-14 flex items-center gap-2.5 rounded-2xl border border-line bg-surface/95 px-3.5 py-2.5 sm:px-4 shadow-md backdrop-blur-md"
-      >
-        <span
-          className="flex h-7 w-7 items-center justify-center rounded-lg text-white shadow-xs"
-          style={{ background: 'linear-gradient(135deg, #ff3131, #ff914d)' }}
-        >
-          <Terminal size={14} />
-        </span>
-        <div className="flex flex-col">
-          <span className="font-display text-[10px] uppercase tracking-wider text-bone-faint font-medium">Deployment</span>
-          <span className="font-display text-xs font-semibold text-bone">Next.js • 99.9% Speed</span>
-        </div>
-      </div>
-
-      {/* Floating decorative tech element 2: AI inference pill */}
-      <div
-        ref={floatTwoRef}
-        className="hero-float absolute -right-2 top-24 sm:top-28 flex items-center gap-2.5 rounded-2xl border border-[#ff914d]/30 bg-surface/95 px-3.5 py-2.5 sm:px-4 shadow-md backdrop-blur-md"
-      >
-        <span
-          className="flex h-7 w-7 items-center justify-center rounded-lg text-white shadow-xs"
-          style={{ background: 'linear-gradient(135deg, #ff3131, #ff914d)' }}
-        >
-          <Cpu size={14} />
-        </span>
-        <div className="flex flex-col">
-          <span className="font-display text-[10px] uppercase tracking-wider text-[#ff3131] font-semibold">Intelligence</span>
-          <span className="font-display text-xs font-semibold text-bone">Gemini &amp; NVIDIA AI</span>
-        </div>
-      </div>
-
-      {/* Floating decorative tech element 3: Metric badge */}
-      <div
-        ref={floatThreeRef}
-        className="hero-float absolute bottom-6 sm:bottom-8 left-8 sm:left-12 flex items-center gap-2 rounded-xl border border-line bg-surface/95 px-3.5 py-2 shadow-sm backdrop-blur-md"
-      >
-        <span
-          className="h-2 w-2 rounded-full"
-          style={{ background: 'linear-gradient(135deg, #ff3131, #ff914d)' }}
-        />
-        <span className="font-display text-xs font-medium text-bone">Engineered for Scale</span>
-      </div>
-    </div>
-  )
+interface OrbitServiceItem {
+  title: string
+  line1: string
+  line2: string
+  icon: typeof Code2
+  angleDeg: number
+  borderColor: string
+  iconBg: string
+  iconColor: string
 }
 
+const ORBIT_SERVICES: OrbitServiceItem[] = [
+  {
+    title: 'Web Development',
+    line1: 'Web',
+    line2: 'Development',
+    icon: Code2,
+    angleDeg: -90, // Top
+    borderColor: 'rgba(244, 63, 94, 0.32)',
+    iconBg: '#fff1f2',
+    iconColor: '#e11d48',
+  },
+  {
+    title: 'Mobile Apps',
+    line1: 'Mobile',
+    line2: 'Apps',
+    icon: Smartphone,
+    angleDeg: -30, // Top-Right
+    borderColor: 'rgba(14, 165, 233, 0.32)',
+    iconBg: '#f0f9ff',
+    iconColor: '#0284c7',
+  },
+  {
+    title: 'Cloud & DevOps',
+    line1: 'Cloud &',
+    line2: 'DevOps',
+    icon: Cloud,
+    angleDeg: 30, // Bottom-Right
+    borderColor: 'rgba(59, 130, 246, 0.32)',
+    iconBg: '#eff6ff',
+    iconColor: '#2563eb',
+  },
+  {
+    title: 'Software Development',
+    line1: 'Software',
+    line2: 'Development',
+    icon: Layers,
+    angleDeg: 90, // Bottom
+    borderColor: 'rgba(139, 92, 246, 0.32)',
+    iconBg: '#f5f3ff',
+    iconColor: '#7c3aed',
+  },
+  {
+    title: 'UI/UX Design',
+    line1: 'UI/UX',
+    line2: 'Design',
+    icon: Palette,
+    angleDeg: 150, // Bottom-Left
+    borderColor: 'rgba(236, 72, 153, 0.32)',
+    iconBg: '#fdf2f8',
+    iconColor: '#db2777',
+  },
+  {
+    title: 'Digital Marketing',
+    line1: 'Digital',
+    line2: 'Marketing',
+    icon: TrendingUp,
+    angleDeg: 210, // Top-Left
+    borderColor: 'rgba(34, 197, 94, 0.32)',
+    iconBg: '#f0fdf4',
+    iconColor: '#16a34a',
+  },
+]
+
 export function Hero() {
-  const containerRef = useRef<HTMLElement>(null)
+  const heroRef = useRef<HTMLElement>(null)
+  const textColRef = useRef<HTMLDivElement>(null)
+  const graphicColRef = useRef<HTMLDivElement>(null)
+
+  // Text animation refs
   const badgeRef = useRef<HTMLDivElement>(null)
   const line1Ref = useRef<HTMLSpanElement>(null)
   const line2Ref = useRef<HTMLSpanElement>(null)
@@ -216,180 +104,298 @@ export function Hero() {
   const descRef = useRef<HTMLParagraphElement>(null)
   const btnGroupRef = useRef<HTMLDivElement>(null)
   const statusRef = useRef<HTMLDivElement>(null)
-  const visualWrapperRef = useRef<HTMLDivElement>(null)
+
+  // Circular graphic animation refs
+  const centerCircleRef = useRef<HTMLDivElement>(null)
+  const orbitSvgRef = useRef<SVGSVGElement>(null)
+  const orbitRotatorRef = useRef<HTMLDivElement>(null)
+  const cardRotatorsRef = useRef<(HTMLDivElement | null)[]>([])
+
+  // Continuous animation timeline holders
+  const orbitTweenRef = useRef<gsap.core.Tween | null>(null)
+  const cardsTweenRef = useRef<gsap.core.Tween | null>(null)
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion) return
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-
-      // Initial state set
-      gsap.set(
-        [
-          badgeRef.current,
-          line1Ref.current,
-          line2Ref.current,
-          line3Ref.current,
-          descRef.current,
-          btnGroupRef.current ? btnGroupRef.current.children : [],
-          statusRef.current,
-          visualWrapperRef.current,
-        ],
-        { opacity: 0 }
-      )
-
-      // Step 2: Badge / eyebrow appears
-      tl.fromTo(
+      // 1. Initial State Setup
+      const allTextElements = [
         badgeRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, delay: 0.1 }
-      )
-
-      // Step 3: Main heading reveals line-by-line
-      tl.fromTo(
-        [line1Ref.current, line2Ref.current, line3Ref.current],
-        { opacity: 0, y: 45 },
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.14 },
-        '-=0.35'
-      )
-
-      // Step 4: Description moves upward and fades in
-      tl.fromTo(
+        line1Ref.current,
+        line2Ref.current,
+        line3Ref.current,
         descRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.7 },
+        btnGroupRef.current ? btnGroupRef.current.children : [],
+        statusRef.current,
+      ]
+
+      if (prefersReducedMotion) {
+        gsap.set(allTextElements, { opacity: 1, y: 0 })
+        gsap.set(centerCircleRef.current, { opacity: 1, scale: 1 })
+        gsap.set(orbitSvgRef.current, { opacity: 1 })
+        gsap.set(cardRotatorsRef.current, { opacity: 1, scale: 1 })
+        return
+      }
+
+      gsap.set(allTextElements, { opacity: 0 })
+      gsap.set(centerCircleRef.current, { opacity: 0, scale: 0.85 })
+      gsap.set(orbitSvgRef.current, { opacity: 0 })
+      gsap.set(cardRotatorsRef.current, { opacity: 0, scale: 0.8 })
+
+      // 2. Master Page Load Timeline
+      const masterTl = gsap.timeline({
+        defaults: { ease: 'power3.out' },
+        delay: 0.15,
+      })
+
+      // Step A: Center Stationary Brand Logo fades in & scales 0.85 -> 1
+      masterTl.to(centerCircleRef.current, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.85,
+        ease: 'back.out(1.2)',
+      })
+
+      // Step B: Circular dashed orbit path fades in
+      masterTl.to(
+        orbitSvgRef.current,
+        {
+          opacity: 1,
+          duration: 0.7,
+        },
         '-=0.45'
       )
 
-      // Step 5: CTA buttons appear with stagger
+      // Step C: 6 Service Cards appear one-by-one around the orbit
+      masterTl.to(
+        cardRotatorsRef.current,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: 'back.out(1.4)',
+          onComplete: () => {
+            // Step D: Start continuous slow orbit rotation after entrance finishes
+            startContinuousOrbit()
+          },
+        },
+        '-=0.35'
+      )
+
+      // Step E: Eyebrow badge reveals
+      masterTl.fromTo(
+        badgeRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5 },
+        '-=0.55'
+      )
+
+      // Step F: Main H1 heading reveals line-by-line with stagger
+      masterTl.fromTo(
+        [line1Ref.current, line2Ref.current, line3Ref.current],
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: 'power3.out',
+        },
+        '-=0.35'
+      )
+
+      // Step G: Description paragraph reveals
+      masterTl.fromTo(
+        descRef.current,
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 0.75 },
+        '-=0.45'
+      )
+
+      // Step H: CTA buttons reveal
       if (btnGroupRef.current) {
-        tl.fromTo(
+        masterTl.fromTo(
           btnGroupRef.current.children,
           { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.12 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
           '-=0.4'
         )
       }
 
-      // Step 5b: Status indicator
-      tl.fromTo(
+      // Step I: Availability status badge
+      masterTl.fromTo(
         statusRef.current,
         { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 0.5 },
         '-=0.3'
       )
 
-      // Step 6: Main hero image/illustration fades in and scales from 0.9 to 1
-      tl.fromTo(
-        visualWrapperRef.current,
-        { opacity: 0, scale: 0.9, y: 40 },
-        { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: 'power3.out' },
-        '-=0.85'
-      )
-    }, containerRef)
+      // 3. Continuous Orbit Animation function
+      function startContinuousOrbit() {
+        if (!orbitRotatorRef.current) return
 
-    return () => ctx.revert()
+        // Outer circular group rotates 360 degrees around center
+        orbitTweenRef.current = gsap.to(orbitRotatorRef.current, {
+          rotation: 360,
+          duration: 24,
+          repeat: -1,
+          ease: 'none',
+        })
+
+        // Each individual service card counter-rotates by -360 degrees
+        // to maintain an upright, level horizontal orientation
+        cardsTweenRef.current = gsap.to(cardRotatorsRef.current, {
+          rotation: -360,
+          duration: 24,
+          repeat: -1,
+          ease: 'none',
+        })
+      }
+
+      // 4. Subtle Parallax on Scroll (ScrollTrigger)
+      if (graphicColRef.current && heroRef.current) {
+        gsap.to(graphicColRef.current, {
+          y: -50,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.6,
+          },
+        })
+      }
+
+      if (textColRef.current && heroRef.current) {
+        gsap.to(textColRef.current, {
+          y: -25,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.6,
+          },
+        })
+      }
+    }, heroRef)
+
+    return () => {
+      ctx.revert()
+      orbitTweenRef.current?.kill()
+      cardsTweenRef.current?.kill()
+    }
   }, [])
+
+  // Interactive hover handlers: pause rotation on hover so user can easily read and click
+  const handleGraphicMouseEnter = () => {
+    orbitTweenRef.current?.pause()
+    cardsTweenRef.current?.pause()
+  }
+
+  const handleGraphicMouseLeave = () => {
+    orbitTweenRef.current?.resume()
+    cardsTweenRef.current?.resume()
+  }
 
   return (
     <section
-      ref={containerRef}
+      ref={heroRef}
       id="home"
-      className="relative overflow-hidden pt-32 pb-16 sm:pt-44 sm:pb-28 lg:pt-48 lg:pb-32"
+      className="relative overflow-hidden bg-white pt-24 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28"
     >
-      <div className="grid-field pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_65%_55%_at_50%_0%,black,transparent)]" />
+      {/* Clean minimal background: subtle architectural grid backdrop */}
+      <div className="grid-field pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_15%,black,transparent)]" />
 
-      {/* Atmospheric sunset gradient mesh behind hero */}
+      {/* Subtle soft pastel radial gradients behind the circular graphic */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-24 right-0 sm:right-10 w-[300px] sm:w-[550px] h-[300px] sm:h-[550px] rounded-full blur-[80px] sm:blur-[130px] opacity-40"
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[540px] lg:w-[620px] h-[340px] sm:h-[540px] lg:h-[620px] rounded-full blur-[80px] sm:blur-[110px] opacity-65"
         style={{
-          background: 'linear-gradient(135deg, rgba(255,49,49,0.35), rgba(255,145,77,0.25))',
+          background:
+            'radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.08) 0%, rgba(139, 92, 246, 0.06) 35%, rgba(14, 165, 233, 0.05) 60%, transparent 75%)',
         }}
       />
 
-      {/* Radiant mobile/tablet sunset gradient aura filling the center void */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[480px] h-[340px] sm:h-[480px] rounded-full blur-[80px] sm:blur-[110px] opacity-65 lg:hidden"
-        style={{
-          background: 'radial-gradient(circle, rgba(255,49,49,0.40) 0%, rgba(255,145,77,0.30) 45%, transparent 70%)',
-        }}
-      />
-
-      <Container className="relative grid items-center gap-8 sm:gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8">
-        <div>
-          {/* 2. Small badge/eyebrow */}
+      <Container className="relative flex flex-col gap-10 sm:gap-14 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-12">
+        {/* ========================================================
+            HERO TEXT COLUMN
+            On mobile: order-2 (appears below the circular graphic)
+            On desktop: order-1 (left column)
+            ======================================================== */}
+        <div
+          ref={textColRef}
+          className="order-2 lg:order-1 flex flex-col items-center text-center lg:items-start lg:text-left"
+        >
+          {/* Eyebrow badge */}
           <div ref={badgeRef} className="inline-block">
-            <span className="inline-flex items-center gap-2 rounded-full border border-signal/30 bg-signal-dim/60 px-4 py-1.5 font-display text-xs font-semibold uppercase tracking-[0.25em] text-signal-soft shadow-xs">
-              <span
-                className="h-1.5 w-1.5 rounded-full"
-                style={{ background: 'linear-gradient(135deg, #ff3131, #ff914d)' }}
-              />
-              Technology Agency &amp; Product Lab
+            <span className="inline-flex items-center gap-2 rounded-full border border-signal/30 bg-signal-dim/70 px-4 py-1.5 font-display text-xs font-semibold uppercase tracking-[0.2em] text-signal-soft shadow-2xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-signal" />
+              Digital Agency &amp; Product Lab
             </span>
           </div>
 
-          {/* 3. Main heading reveals line-by-line */}
-          <h1 className="mt-6 sm:mt-7 font-display text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-bone sm:text-6xl lg:text-[3.75rem]">
+          {/* Main H1 Heading — Line-by-line reveal */}
+          <h1 className="mt-5 sm:mt-6 font-display text-[2.35rem] font-bold leading-[1.1] tracking-tight text-bone sm:text-5xl lg:text-[3.5rem] xl:text-[3.75rem]">
             <span ref={line1Ref} className="block">
-              Engineering modern
+              Building Digital
             </span>
             <span ref={line2Ref} className="block">
-              software &amp; scalable
+              Products That Help
             </span>
             <span ref={line3Ref} className="block text-bone">
-              digital products
-              <span
-                className="font-accent italic font-normal text-transparent bg-clip-text"
-                style={{ backgroundImage: 'linear-gradient(135deg, #ff3131, #ff914d)' }}
-              >
-                .
-              </span>
+              Businesses Grow
+              <span className="font-accent italic font-normal text-signal">.</span>
             </span>
           </h1>
 
-          {/* 4. Description moves upward and fades in */}
+          {/* Supporting paragraph */}
           <p
             ref={descRef}
             className="mt-5 sm:mt-6 max-w-xl text-balance text-base leading-relaxed text-bone-dim sm:text-lg"
           >
-            We partner with ambitious startups and forward-thinking enterprises to design,
-            develop, and automate high-performance web platforms, mobile apps, and custom AI systems.
+            We build modern digital solutions that help ambitious businesses transform ideas into
+            scalable products, elevate customer experiences, and achieve sustainable online growth.
           </p>
 
-          {/* 5. CTA buttons appear with stagger */}
-          <div ref={btnGroupRef} className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4">
+          {/* CTA Buttons */}
+          <div
+            ref={btnGroupRef}
+            className="mt-8 sm:mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-4"
+          >
             <Button
               href="#contact"
-              className="shadow-[0_4px_18px_rgba(255,49,49,0.28)]"
-              style={{
-                background: 'linear-gradient(135deg, #ff3131, #ff914d)',
-                color: '#ffffff',
-              }}
+              variant="primary"
+              className="!px-7 !py-3.5 shadow-[0_4px_20px_rgba(245,158,11,0.25)]"
+              onClick={() => scrollToTarget('#contact')}
             >
               Start a Project
               <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
             </Button>
-            <Button href="#work" variant="secondary">
+            <Button
+              href="#work"
+              variant="secondary"
+              className="!px-6 !py-3.5"
+              onClick={() => scrollToTarget('#work')}
+            >
               Explore Our Work
-              <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight
+                size={16}
+                className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
             </Button>
           </div>
 
-          {/* Availability status badge with tightened mobile spacing */}
-          <div ref={statusRef} className="mt-8 sm:mt-10 flex items-center gap-3">
+          {/* Status Indicator */}
+          <div
+            ref={statusRef}
+            className="mt-8 sm:mt-9 flex items-center justify-center lg:justify-start gap-3"
+          >
             <span className="relative flex h-2.5 w-2.5">
-              <span
-                className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60"
-                style={{ background: '#ff3131' }}
-              />
-              <span
-                className="relative inline-flex h-2.5 w-2.5 rounded-full"
-                style={{ background: 'linear-gradient(135deg, #ff3131, #ff914d)' }}
-              />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-60" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-signal" />
             </span>
             <span className="font-display text-xs font-medium text-bone-dim">
               Available for Q4 client builds &amp; architecture partnerships
@@ -397,9 +403,165 @@ export function Hero() {
           </div>
         </div>
 
-        {/* 6. Main hero illustration scales from 0.9 to 1 with floaters */}
-        <div ref={visualWrapperRef} className="relative mt-2 lg:mt-0">
-          <HeroVisual />
+        {/* ========================================================
+            CIRCULAR SERVICES GRAPHIC
+            On mobile: order-1 (appears first below navbar)
+            On desktop: order-2 (right column)
+            ======================================================== */}
+        <div
+          ref={graphicColRef}
+          className="order-1 lg:order-2 flex items-center justify-center w-full"
+        >
+          <div
+            onMouseEnter={handleGraphicMouseEnter}
+            onMouseLeave={handleGraphicMouseLeave}
+            className="relative mx-auto aspect-square w-full max-w-[320px] sm:max-w-[420px] lg:max-w-[480px] xl:max-w-[500px] select-none"
+            aria-label="Odify core services interactive rotating orbit"
+          >
+            {/* Extremely subtle soft pastel radial gradients directly behind the orbit */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[260px] sm:w-[360px] lg:w-[420px] h-[260px] sm:h-[360px] lg:h-[420px] rounded-full blur-[50px] sm:blur-[70px] opacity-70"
+              style={{
+                background:
+                  'radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(139, 92, 246, 0.08) 40%, rgba(244, 63, 94, 0.06) 65%, transparent 80%)',
+              }}
+            />
+
+            {/* Stationary Circular Dotted/Dashed Orbit Path (SVG) */}
+            <svg
+              ref={orbitSvgRef}
+              viewBox="0 0 440 440"
+              className="pointer-events-none absolute inset-0 h-full w-full"
+              aria-hidden="true"
+            >
+              <defs>
+                <linearGradient id="orbitPastelStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.35" />
+                  <stop offset="35%" stopColor="#8b5cf6" stopOpacity="0.25" />
+                  <stop offset="70%" stopColor="#0ea5e9" stopOpacity="0.28" />
+                  <stop offset="100%" stopColor="#f43f5e" stopOpacity="0.32" />
+                </linearGradient>
+              </defs>
+
+              {/* Outer faint guiding circle */}
+              <circle
+                cx="220"
+                cy="220"
+                r="150"
+                fill="none"
+                stroke="url(#orbitPastelStroke)"
+                strokeWidth="1.2"
+                strokeDasharray="4 6"
+              />
+
+              {/* Inner decorative light orbit track */}
+              <circle
+                cx="220"
+                cy="220"
+                r="95"
+                fill="none"
+                stroke="rgba(10, 11, 13, 0.06)"
+                strokeWidth="1"
+                strokeDasharray="2 4"
+              />
+            </svg>
+
+            {/* ====================================================
+                ROTATING SERVICES GROUP (Continuously rotates 360°)
+                ==================================================== */}
+            <div
+              ref={orbitRotatorRef}
+              className="absolute inset-0 h-full w-full"
+              style={{ transformOrigin: '50% 50%' }}
+            >
+              {ORBIT_SERVICES.map((item, index) => {
+                const Icon = item.icon
+                // Calculate position along circular orbit of radius R = 34.5%
+                const rad = (item.angleDeg * Math.PI) / 180
+                const radiusPercent = 34.5
+                const leftPercent = 50 + radiusPercent * Math.cos(rad)
+                const topPercent = 50 + radiusPercent * Math.sin(rad)
+
+                return (
+                  <div
+                    key={item.title}
+                    className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
+                    style={{
+                      left: `${leftPercent}%`,
+                      top: `${topPercent}%`,
+                    }}
+                  >
+                    {/* Individual Service Card (Counter-rotates -360° to remain upright) */}
+                    <div
+                      ref={(el) => {
+                        cardRotatorsRef.current[index] = el
+                      }}
+                      onClick={() => scrollToTarget('#services')}
+                      className="service-card group cursor-pointer transition-transform duration-200 hover:scale-108"
+                      style={{ transformOrigin: '50% 50%' }}
+                    >
+                      <div
+                        className="flex items-center gap-1.5 sm:gap-2.5 rounded-xl sm:rounded-2xl bg-white/95 px-2 py-1.5 sm:px-3 sm:py-2 shadow-[0_4px_18px_rgba(0,0,0,0.05)] border backdrop-blur-xs transition-all duration-200 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+                        style={{ borderColor: item.borderColor }}
+                      >
+                        {/* Icon Box */}
+                        <span
+                          className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-lg border transition-transform duration-200 group-hover:scale-110"
+                          style={{
+                            backgroundColor: item.iconBg,
+                            color: item.iconColor,
+                            borderColor: item.borderColor,
+                          }}
+                        >
+                          <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={1.9} />
+                        </span>
+
+                        {/* Service Title (two lines for optimal compactness) */}
+                        <div className="flex flex-col text-left leading-tight">
+                          <span className="font-display text-[10px] sm:text-xs font-semibold text-bone whitespace-nowrap">
+                            {item.line1}
+                          </span>
+                          <span className="font-display text-[9px] sm:text-[11px] font-medium text-bone-dim whitespace-nowrap">
+                            {item.line2}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* ====================================================
+                CENTER STATIONARY LOGO BADGE (Does NOT rotate)
+                ==================================================== */}
+            <div
+              ref={centerCircleRef}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex h-20 w-20 sm:h-28 sm:w-28 flex-col items-center justify-center rounded-full border border-line-soft bg-white p-2 text-center shadow-[0_10px_35px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] select-none pointer-events-auto"
+            >
+              {/* Very subtle ambient pulse glow behind badge */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-2 rounded-full bg-signal/15 blur-md"
+              />
+
+              <div className="relative flex flex-col items-center justify-center">
+                {/* Odify geometric monogram badge */}
+                <div className="relative flex h-8 w-8 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-bone text-white shadow-xs">
+                  <span className="font-display text-base sm:text-xl font-black tracking-tight text-white">
+                    O
+                  </span>
+                  <span className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-signal ring-2 ring-white shadow-xs" />
+                </div>
+
+                {/* Company Name */}
+                <span className="mt-1 font-display text-[9px] sm:text-[10px] font-bold tracking-[0.2em] text-bone uppercase">
+                  ODIFY
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </Container>
     </section>
