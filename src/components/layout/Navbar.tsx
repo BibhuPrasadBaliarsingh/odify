@@ -34,69 +34,83 @@ export function Navbar() {
   return (
     <header
       ref={headerRef}
-      className="fixed inset-x-0 top-0 z-50 transition-all duration-300 pointer-events-none"
+      className="fixed inset-x-0 top-0 z-50 pointer-events-none"
     >
-      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-12 pt-3 sm:pt-4 pointer-events-auto">
+      <div
+        className={`mx-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-auto ${
+          scrolled
+            ? 'w-full max-w-none px-0 pt-0'
+            : 'w-full max-w-[1280px] px-4 sm:px-6 lg:px-12 pt-3 sm:pt-4'
+        }`}
+      >
         <div
-          className={`flex items-center justify-between rounded-2xl sm:rounded-full border transition-all duration-500 px-5 sm:px-7 py-3 ${
+          className={`transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             scrolled
-              ? 'border-bone/10 bg-white/95 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl'
-              : 'border-bone/10 bg-white/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] backdrop-blur-md'
+              ? 'w-full rounded-none border-b border-t-0 border-x-0 border-bone/10 bg-white/95 shadow-[0_4px_24px_rgba(0,0,0,0.05)] backdrop-blur-xl'
+              : 'rounded-2xl sm:rounded-full border border-bone/10 bg-white/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] backdrop-blur-md'
           }`}
         >
-          {/* Brand Logo on Left */}
-          <a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault()
-              handleNavClick('#home')
-            }}
-            className="group flex items-center gap-1.5 font-display text-lg sm:text-xl font-bold tracking-tight text-bone"
+          <div
+            className={`mx-auto flex items-center justify-between transition-all duration-500 ${
+              scrolled
+                ? 'max-w-[1280px] px-6 sm:px-8 lg:px-12 py-3.5'
+                : 'px-5 sm:px-7 py-3'
+            }`}
           >
-            <span>{site.name.toUpperCase()}</span>
-            <span className="h-2 w-2 rounded-full bg-signal shadow-xs transition-transform duration-300 group-hover:scale-150" />
-          </a>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-7 lg:flex">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault()
-                  handleNavClick(link.href)
-                }}
-                className="relative font-display text-sm font-medium text-bone-dim transition-colors duration-200 hover:text-bone"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
-            <Button
-              href="#contact"
-              variant="primary"
-              className="!px-5 !py-2.5 text-xs sm:text-sm !font-semibold"
-              onClick={() => handleNavClick('#contact')}
+            {/* Brand Logo on Left */}
+            <a
+              href="#home"
+              onClick={(e) => {
+                e.preventDefault()
+                handleNavClick('#home')
+              }}
+              className="group flex items-center gap-1.5 font-display text-lg sm:text-xl font-bold tracking-tight text-bone"
             >
-              Let's Talk
-              <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-            </Button>
-          </div>
+              <span>{site.name.toUpperCase()}</span>
+              <span className="h-2 w-2 rounded-full bg-signal shadow-xs transition-transform duration-300 group-hover:scale-150" />
+            </a>
 
-          {/* Mobile Menu Trigger on Right */}
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-bone/10 bg-surface text-bone shadow-2xs transition-colors hover:border-signal lg:hidden"
-          >
-            {open ? <X size={18} /> : <Menu size={18} />}
-          </button>
+            {/* Desktop Navigation */}
+            <nav className="hidden items-center gap-7 lg:flex">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleNavClick(link.href)
+                  }}
+                  className="relative font-display text-sm font-medium text-bone-dim transition-colors duration-200 hover:text-bone"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+
+            {/* Desktop CTA */}
+            <div className="hidden lg:flex items-center gap-3">
+              <Button
+                href="#contact"
+                variant="primary"
+                className="!px-5 !py-2.5 text-xs sm:text-sm !font-semibold"
+                onClick={() => handleNavClick('#contact')}
+              >
+                Let's Talk
+                <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Button>
+            </div>
+
+            {/* Mobile Menu Trigger on Right */}
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-bone/10 bg-surface text-bone shadow-2xs transition-colors hover:border-signal lg:hidden"
+            >
+              {open ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Drawer */}
@@ -107,9 +121,13 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="mt-2 overflow-hidden rounded-2xl border border-bone/10 bg-white/98 p-5 shadow-xl backdrop-blur-2xl lg:hidden"
+              className={`overflow-hidden border-bone/10 bg-white/98 shadow-xl backdrop-blur-2xl lg:hidden ${
+                scrolled
+                  ? 'border-b px-6 py-5 rounded-none'
+                  : 'mt-2 rounded-2xl border p-5'
+              }`}
             >
-              <div className="flex flex-col gap-1">
+              <div className="mx-auto max-w-[1280px] flex flex-col gap-1">
                 {navLinks.map((link, i) => (
                   <motion.a
                     key={link.href}
