@@ -6,54 +6,59 @@ export interface Testimonial {
   company: string
   metrics?: string
   avatarInitial: string
+  tag?: string
 }
 
 export const testimonialsSectionData = {
   eyebrow: 'Client Testimonials',
   heading: 'What Our Clients Say About Us',
   subheading:
-    'Real feedback from business owners, founders, and leaders who partnered with us for web development, technology, and digital marketing.',
+    'Real feedback from business leaders, founders, and executives who achieved measurable growth and technical transformation with Odify.',
 }
 
 export const testimonials: Testimonial[] = [
   {
     id: '1',
-    author: 'Prakash Sahoo',
-    role: 'Founder',
-    company: 'Infinity Space',
+    author: 'Rohan Jena',
+    role: 'Managing Director',
+    company: 'Kalinga Logistics & Freight',
     quote:
-      'Partnering with Odify has been a great decision for our business. From developing our website to handling SEO and digital marketing activities, the team has consistently delivered quality work. They took the time to understand our business and created strategies that improved our online visibility and helped us reach more potential customers.',
-    metrics: '+240% Inbound Leads',
-    avatarInitial: 'PS',
+      'Odify built our custom operations portal and overhauled our B2B client acquisition funnels. Within three months of launch, our inbound quote requests doubled and customer onboarding time dropped by 65%. Their engineering discipline and responsiveness are unmatched.',
+    metrics: '+210% B2B Inquiries',
+    avatarInitial: 'RJ',
+    tag: 'Custom Operations Portal & SEO',
   },
   {
     id: '2',
-    author: 'Ashish Agarwal',
-    role: 'Founder',
-    company: 'AeroBill Software',
+    author: 'Sneha Mohanty',
+    role: 'Co-Founder & Creative Director',
+    company: 'Aura Living Design Studio',
     quote:
-      'Odify developed our corporate website for both our mining and EV businesses. We wanted to improve our search visibility and attract more potential customers across India. The team delivered exceptional results with a high-performing web platform and targeted advertising that increased our qualified conversions significantly.',
-    metrics: '+180% Web Inquiries',
-    avatarInitial: 'AA',
+      'From clean architectural UI to our consultation booking engine, Odify delivered a stunning, ultra-fast platform. Our organic search rankings have climbed to page one across Odisha, and our weekly consultation slots are consistently booked solid.',
+    metrics: '3.4x Faster Page Speeds',
+    avatarInitial: 'SM',
+    tag: 'Web Architecture & Local SEO',
   },
   {
     id: '3',
-    author: 'Debasis Mishra',
-    role: 'Director',
-    company: 'Blue Edge Trade Venture Pvt. Ltd.',
+    author: 'Dr. Vikramaditya Roy',
+    role: 'Head of Operations',
+    company: 'HealthPulse Diagnostics',
     quote:
-      'We needed a dependable, corporate digital platform that would represent our industrial mining and mineral trading footprint. Odify executed the project with utmost precision, delivering a fast, responsive, and search-optimized site that has earned praise from partners and stakeholders alike.',
-    metrics: 'Enterprise Speed & Reliability',
-    avatarInitial: 'DM',
+      'We needed an intuitive patient test booking platform paired with hyper-targeted Google and Meta ad campaigns. Odify executed the entire digital funnel with precision. Our cost-per-patient acquisition dropped by 42% while monthly bookings reached record highs.',
+    metrics: '-42% Patient Acquisition Cost',
+    avatarInitial: 'VR',
+    tag: 'Healthcare Portal & Paid Ads',
   },
   {
     id: '4',
-    author: 'Rajesh Patra',
-    role: 'Owner',
-    company: 'Divine Puri Tours Holidays',
+    author: 'Ananya Priyadarshini',
+    role: 'Founder & CEO',
+    company: 'PureRoot Organic Living',
     quote:
-      'We wanted a website that would help tourists in Puri easily explore our services and book customized tour packages. Their team created a lightning-fast booking platform and local SEO strategy that brought in a steady stream of organic inquiries and high-intent bookings.',
-    metrics: 'Rank #1 Local Searches',
-    avatarInitial: 'RP',
+      'Odify transformed our online retail storefront with high-performance headless architecture and automated inventory sync. Our mobile checkout abandonment plummeted, and repeat customer conversions surged by 175%. They operate as a true technical partner.',
+    metrics: '+175% Repeat Conversions',
+    avatarInitial: 'AP',
+    tag: 'E-Commerce & Performance Funnels',
   },
 ]

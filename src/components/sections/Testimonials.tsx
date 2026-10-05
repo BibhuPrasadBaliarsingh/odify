@@ -79,18 +79,25 @@ export function Testimonials() {
                 </p>
               </div>
 
-              <div className="mt-7 flex items-center gap-3.5 border-t border-line-soft pt-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-signal-dim font-display text-xs font-bold text-signal">
-                  {item.avatarInitial}
+              <div className="mt-6 flex items-center justify-between border-t border-line-soft pt-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-signal-dim font-display text-xs font-bold text-signal">
+                    {item.avatarInitial}
+                  </div>
+                  <div>
+                    <h4 className="font-display text-sm font-bold text-bone">
+                      {item.author}
+                    </h4>
+                    <p className="text-xs text-bone-dim">
+                      {item.role} · <span className="font-semibold text-bone">{item.company}</span>
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-display text-sm font-bold text-bone">
-                    {item.author}
-                  </h4>
-                  <p className="text-xs text-bone-dim">
-                    {item.role} · <span className="font-semibold text-bone">{item.company}</span>
-                  </p>
-                </div>
+                {item.tag ? (
+                  <span className="hidden md:inline-block rounded-md bg-ink-soft px-2.5 py-1 font-mono text-[10px] text-bone-dim">
+                    {item.tag}
+                  </span>
+                ) : null}
               </div>
             </div>
           ))}
