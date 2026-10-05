@@ -30,7 +30,7 @@ export function Process() {
               scrollTrigger: {
                 trigger: item,
                 start: 'top 85%',
-                once: true,
+                toggleActions: 'play reverse play reverse',
               },
             }
           )

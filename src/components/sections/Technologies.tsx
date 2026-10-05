@@ -46,7 +46,7 @@ export function Technologies() {
             scrollTrigger: {
               trigger: gridRef.current,
               start: 'top 85%',
-              once: true,
+              toggleActions: 'play reverse play reverse',
             },
           }
         )

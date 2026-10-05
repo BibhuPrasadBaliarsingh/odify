@@ -3,16 +3,16 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
   ArrowRight,
   ArrowUpRight,
-  Cloud,
   Code2,
+  Cpu,
+  Globe,
   Layers,
-  Palette,
-  Smartphone,
   TrendingUp,
 } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
+import { site } from '@/data/site'
 import { scrollToTarget } from '@/lib/lenis'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -21,73 +21,94 @@ interface OrbitServiceItem {
   title: string
   line1: string
   line2: string
+  pillar: 'GROW' | 'BUILD' | 'SCALE'
   icon: typeof Code2
   angleDeg: number
   borderColor: string
   iconBg: string
   iconColor: string
+  pillBg: string
+  pillColor: string
 }
 
 const ORBIT_SERVICES: OrbitServiceItem[] = [
   {
-    title: 'Web Development',
-    line1: 'Web',
-    line2: 'Development',
-    icon: Code2,
-    angleDeg: -90, // Top
-    borderColor: 'rgba(244, 63, 94, 0.32)',
-    iconBg: '#fff1f2',
-    iconColor: '#e11d48',
-  },
-  {
-    title: 'Mobile Apps',
-    line1: 'Mobile',
-    line2: 'Apps',
-    icon: Smartphone,
-    angleDeg: -30, // Top-Right
-    borderColor: 'rgba(14, 165, 233, 0.32)',
-    iconBg: '#f0f9ff',
-    iconColor: '#0284c7',
-  },
-  {
-    title: 'Cloud & DevOps',
-    line1: 'Cloud &',
-    line2: 'DevOps',
-    icon: Cloud,
-    angleDeg: 30, // Bottom-Right
-    borderColor: 'rgba(59, 130, 246, 0.32)',
-    iconBg: '#eff6ff',
-    iconColor: '#2563eb',
-  },
-  {
-    title: 'Software Development',
-    line1: 'Software',
-    line2: 'Development',
-    icon: Layers,
-    angleDeg: 90, // Bottom
-    borderColor: 'rgba(139, 92, 246, 0.32)',
-    iconBg: '#f5f3ff',
-    iconColor: '#7c3aed',
-  },
-  {
-    title: 'UI/UX Design',
-    line1: 'UI/UX',
-    line2: 'Design',
-    icon: Palette,
-    angleDeg: 150, // Bottom-Left
-    borderColor: 'rgba(236, 72, 153, 0.32)',
-    iconBg: '#fdf2f8',
-    iconColor: '#db2777',
-  },
-  {
-    title: 'Digital Marketing',
-    line1: 'Digital',
-    line2: 'Marketing',
+    title: 'Google & Meta Ads',
+    line1: 'Google &',
+    line2: 'Meta Ads',
+    pillar: 'GROW',
     icon: TrendingUp,
-    angleDeg: 210, // Top-Left
-    borderColor: 'rgba(34, 197, 94, 0.32)',
+    angleDeg: -90, // Top
+    borderColor: 'rgba(34, 197, 94, 0.35)',
     iconBg: '#f0fdf4',
     iconColor: '#16a34a',
+    pillBg: '#dcfce7',
+    pillColor: '#15803d',
+  },
+  {
+    title: 'Business Websites',
+    line1: 'Business',
+    line2: 'Websites',
+    pillar: 'BUILD',
+    icon: Globe,
+    angleDeg: -30, // Top-Right
+    borderColor: 'rgba(245, 158, 11, 0.35)',
+    iconBg: '#fffbeb',
+    iconColor: '#d97706',
+    pillBg: '#fef3c7',
+    pillColor: '#b45309',
+  },
+  {
+    title: 'Custom Software',
+    line1: 'Custom',
+    line2: 'Software',
+    pillar: 'SCALE',
+    icon: Cpu,
+    angleDeg: 30, // Bottom-Right
+    borderColor: 'rgba(99, 102, 241, 0.35)',
+    iconBg: '#eef2ff',
+    iconColor: '#4f46e5',
+    pillBg: '#e0e7ff',
+    pillColor: '#3730a3',
+  },
+  {
+    title: 'SEO & Organic Growth',
+    line1: 'SEO &',
+    line2: 'Local SEO',
+    pillar: 'GROW',
+    icon: TrendingUp,
+    angleDeg: 90, // Bottom
+    borderColor: 'rgba(16, 185, 129, 0.35)',
+    iconBg: '#ecfdf5',
+    iconColor: '#059669',
+    pillBg: '#d1fae5',
+    pillColor: '#047857',
+  },
+  {
+    title: 'Custom Web Apps',
+    line1: 'Web',
+    line2: 'Applications',
+    pillar: 'BUILD',
+    icon: Code2,
+    angleDeg: 150, // Bottom-Left
+    borderColor: 'rgba(234, 88, 12, 0.35)',
+    iconBg: '#fff7ed',
+    iconColor: '#ea580c',
+    pillBg: '#ffedd5',
+    pillColor: '#c2410c',
+  },
+  {
+    title: 'Automation & CRM',
+    line1: 'Automation',
+    line2: '& CRM',
+    pillar: 'SCALE',
+    icon: Layers,
+    angleDeg: 210, // Top-Left
+    borderColor: 'rgba(139, 92, 246, 0.35)',
+    iconBg: '#f5f3ff',
+    iconColor: '#7c3aed',
+    pillBg: '#ede9fe',
+    pillColor: '#6d28d9',
   },
 ]
 
@@ -102,6 +123,7 @@ export function Hero() {
   const line2Ref = useRef<HTMLSpanElement>(null)
   const line3Ref = useRef<HTMLSpanElement>(null)
   const descRef = useRef<HTMLParagraphElement>(null)
+  const pillsRef = useRef<HTMLDivElement>(null)
   const btnGroupRef = useRef<HTMLDivElement>(null)
   const statusRef = useRef<HTMLDivElement>(null)
 
@@ -126,6 +148,7 @@ export function Hero() {
         line2Ref.current,
         line3Ref.current,
         descRef.current,
+        pillsRef.current,
         btnGroupRef.current ? btnGroupRef.current.children : [],
         statusRef.current,
       ]
@@ -214,7 +237,17 @@ export function Hero() {
         '-=0.45'
       )
 
-      // Step H: CTA buttons reveal
+      // Step H: Pillars tags reveal
+      if (pillsRef.current) {
+        masterTl.fromTo(
+          pillsRef.current,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.6 },
+          '-=0.45'
+        )
+      }
+
+      // Step I: CTA buttons reveal
       if (btnGroupRef.current) {
         masterTl.fromTo(
           btnGroupRef.current.children,
@@ -224,7 +257,7 @@ export function Hero() {
         )
       }
 
-      // Step I: Availability status badge
+      // Step J: Availability status badge
       masterTl.fromTo(
         statusRef.current,
         { opacity: 0, y: 15 },
@@ -239,7 +272,7 @@ export function Hero() {
         // Outer circular group rotates 360 degrees around center
         orbitTweenRef.current = gsap.to(orbitRotatorRef.current, {
           rotation: 360,
-          duration: 24,
+          duration: 26,
           repeat: -1,
           ease: 'none',
         })
@@ -248,7 +281,7 @@ export function Hero() {
         // to maintain an upright, level horizontal orientation
         cardsTweenRef.current = gsap.to(cardRotatorsRef.current, {
           rotation: -360,
-          duration: 24,
+          duration: 26,
           repeat: -1,
           ease: 'none',
         })
@@ -263,20 +296,7 @@ export function Hero() {
             trigger: heroRef.current,
             start: 'top top',
             end: 'bottom top',
-            scrub: 0.6,
-          },
-        })
-      }
-
-      if (textColRef.current && heroRef.current) {
-        gsap.to(textColRef.current, {
-          y: -25,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 0.6,
+            scrub: 1.2,
           },
         })
       }
@@ -333,20 +353,20 @@ export function Hero() {
           <div ref={badgeRef} className="inline-block">
             <span className="inline-flex items-center gap-2 rounded-full border border-signal/30 bg-signal-dim/70 px-4 py-1.5 font-display text-xs font-semibold uppercase tracking-[0.2em] text-signal-soft shadow-2xs">
               <span className="h-1.5 w-1.5 rounded-full bg-signal" />
-              Digital Agency &amp; Product Lab
+              {site.fullName}
             </span>
           </div>
 
           {/* Main H1 Heading — Line-by-line reveal */}
           <h1 className="mt-5 sm:mt-6 font-display text-[2.35rem] font-bold leading-[1.1] tracking-tight text-bone sm:text-5xl lg:text-[3.5rem] xl:text-[3.75rem]">
             <span ref={line1Ref} className="block">
-              Building Digital
+              Acquire Customers.
             </span>
             <span ref={line2Ref} className="block">
-              Products That Help
+              Build Experiences.
             </span>
             <span ref={line3Ref} className="block text-bone">
-              Businesses Grow
+              Automate To Scale
               <span className="font-accent italic font-normal text-signal">.</span>
             </span>
           </h1>
@@ -356,14 +376,35 @@ export function Hero() {
             ref={descRef}
             className="mt-5 sm:mt-6 max-w-xl text-balance text-base leading-relaxed text-bone-dim sm:text-lg"
           >
-            We build modern digital solutions that help ambitious businesses transform ideas into
-            scalable products, elevate customer experiences, and achieve sustainable online growth.
+            {site.mission}
           </p>
+
+          {/* GROW · BUILD · SCALE Action Pills */}
+          <div
+            ref={pillsRef}
+            className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-2.5"
+          >
+            <span className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/20 bg-emerald-50/80 px-2.5 py-1 text-xs font-medium text-emerald-800">
+              <strong className="font-bold text-emerald-950">GROW</strong>
+              <span className="text-emerald-700/60">·</span>
+              Marketing &amp; Advertising
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-50/80 px-2.5 py-1 text-xs font-medium text-amber-800">
+              <strong className="font-bold text-amber-950">BUILD</strong>
+              <span className="text-amber-700/60">·</span>
+              Websites &amp; Applications
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-lg border border-indigo-500/20 bg-indigo-50/80 px-2.5 py-1 text-xs font-medium text-indigo-800">
+              <strong className="font-bold text-indigo-950">SCALE</strong>
+              <span className="text-indigo-700/60">·</span>
+              Technology &amp; Automation
+            </span>
+          </div>
 
           {/* CTA Buttons */}
           <div
             ref={btnGroupRef}
-            className="mt-8 sm:mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-4"
+            className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4"
           >
             <Button
               href="#contact"
@@ -375,12 +416,12 @@ export function Hero() {
               <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
             </Button>
             <Button
-              href="#work"
+              href="#services"
               variant="secondary"
               className="!px-6 !py-3.5"
-              onClick={() => scrollToTarget('#work')}
+              onClick={() => scrollToTarget('#services')}
             >
-              Explore Our Work
+              Explore Capabilities
               <ArrowUpRight
                 size={16}
                 className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -388,17 +429,32 @@ export function Hero() {
             </Button>
           </div>
 
+          {/* Service Strip / Categories Line */}
+          <div className="mt-7 flex flex-wrap items-center justify-center lg:justify-start gap-x-2.5 gap-y-1 text-xs font-medium text-bone-dim/90">
+            <span>Websites</span>
+            <span className="text-bone-faint/60">|</span>
+            <span>Software</span>
+            <span className="text-bone-faint/60">|</span>
+            <span>Google Ads</span>
+            <span className="text-bone-faint/60">|</span>
+            <span>Meta Ads</span>
+            <span className="text-bone-faint/60">|</span>
+            <span>SEO</span>
+            <span className="text-bone-faint/60">|</span>
+            <span>Social Media Management</span>
+          </div>
+
           {/* Status Indicator */}
           <div
             ref={statusRef}
-            className="mt-8 sm:mt-9 flex items-center justify-center lg:justify-start gap-3"
+            className="mt-6 flex items-center justify-center lg:justify-start gap-3"
           >
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-60" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-signal" />
             </span>
             <span className="font-display text-xs font-medium text-bone-dim">
-              Available for Q4 client builds &amp; architecture partnerships
+              Accepting ambitious clients for Q4 growth &amp; tech builds
             </span>
           </div>
         </div>
@@ -424,7 +480,7 @@ export function Hero() {
               className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[260px] sm:w-[360px] lg:w-[420px] h-[260px] sm:h-[360px] lg:h-[420px] rounded-full blur-[50px] sm:blur-[70px] opacity-70"
               style={{
                 background:
-                  'radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(139, 92, 246, 0.08) 40%, rgba(244, 63, 94, 0.06) 65%, transparent 80%)',
+                  'radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(139, 92, 246, 0.08) 40%, rgba(34, 197, 94, 0.07) 65%, transparent 80%)',
               }}
             />
 
@@ -437,10 +493,10 @@ export function Hero() {
             >
               <defs>
                 <linearGradient id="orbitPastelStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.35" />
-                  <stop offset="35%" stopColor="#8b5cf6" stopOpacity="0.25" />
-                  <stop offset="70%" stopColor="#0ea5e9" stopOpacity="0.28" />
-                  <stop offset="100%" stopColor="#f43f5e" stopOpacity="0.32" />
+                  <stop offset="0%" stopColor="#16a34a" stopOpacity="0.35" />
+                  <stop offset="35%" stopColor="#d97706" stopOpacity="0.30" />
+                  <stop offset="70%" stopColor="#4f46e5" stopOpacity="0.30" />
+                  <stop offset="100%" stopColor="#16a34a" stopOpacity="0.35" />
                 </linearGradient>
               </defs>
 
@@ -448,27 +504,29 @@ export function Hero() {
               <circle
                 cx="220"
                 cy="220"
-                r="150"
+                r="165"
                 fill="none"
                 stroke="url(#orbitPastelStroke)"
-                strokeWidth="1.2"
+                strokeWidth="1.5"
                 strokeDasharray="4 6"
+                className="opacity-75"
               />
 
-              {/* Inner decorative light orbit track */}
+              {/* Inner secondary aesthetic circle */}
               <circle
                 cx="220"
                 cy="220"
                 r="95"
                 fill="none"
-                stroke="rgba(10, 11, 13, 0.06)"
+                stroke="rgba(0,0,0,0.06)"
                 strokeWidth="1"
                 strokeDasharray="2 4"
               />
             </svg>
 
             {/* ====================================================
-                ROTATING SERVICES GROUP (Continuously rotates 360°)
+                ROTATING ORBIT CONTAINER
+                Rotates 360 degrees continuously via GSAP
                 ==================================================== */}
             <div
               ref={orbitRotatorRef}
@@ -477,26 +535,28 @@ export function Hero() {
             >
               {ORBIT_SERVICES.map((item, index) => {
                 const Icon = item.icon
-                // Calculate position along circular orbit of radius R = 34.5%
-                const rad = (item.angleDeg * Math.PI) / 180
-                const radiusPercent = 34.5
-                const leftPercent = 50 + radiusPercent * Math.cos(rad)
-                const topPercent = 50 + radiusPercent * Math.sin(rad)
+                const angleRad = (item.angleDeg * Math.PI) / 180
+                // Orbit radius = 37.5% of container width (matches SVG r=165 / 440)
+                const radiusPct = 37.5
+                const xPct = 50 + radiusPct * Math.cos(angleRad)
+                const yPct = 50 + radiusPct * Math.sin(angleRad)
 
                 return (
                   <div
                     key={item.title}
-                    className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
+                    ref={(el) => {
+                      cardRotatorsRef.current[index] = el
+                    }}
+                    className="absolute pointer-events-auto"
                     style={{
-                      left: `${leftPercent}%`,
-                      top: `${topPercent}%`,
+                      left: `${xPct}%`,
+                      top: `${yPct}%`,
+                      transform: 'translate(-50%, -50%)',
+                      transformOrigin: '50% 50%',
                     }}
                   >
-                    {/* Individual Service Card (Counter-rotates -360° to remain upright) */}
+                    {/* Individual Service Capsule */}
                     <div
-                      ref={(el) => {
-                        cardRotatorsRef.current[index] = el
-                      }}
                       onClick={() => scrollToTarget('#services')}
                       className="service-card group cursor-pointer transition-transform duration-200 hover:scale-108"
                       style={{ transformOrigin: '50% 50%' }}
@@ -517,7 +577,7 @@ export function Hero() {
                           <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={1.9} />
                         </span>
 
-                        {/* Service Title (two lines for optimal compactness) */}
+                        {/* Service Title */}
                         <div className="flex flex-col text-left leading-tight">
                           <span className="font-display text-[10px] sm:text-xs font-semibold text-bone whitespace-nowrap">
                             {item.line1}
@@ -538,7 +598,7 @@ export function Hero() {
                 ==================================================== */}
             <div
               ref={centerCircleRef}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex h-20 w-20 sm:h-28 sm:w-28 flex-col items-center justify-center rounded-full border border-line-soft bg-white p-2 text-center shadow-[0_10px_35px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] select-none pointer-events-auto"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex h-22 w-22 sm:h-28 sm:w-28 flex-col items-center justify-center rounded-full border border-line-soft bg-white p-2 text-center shadow-[0_10px_35px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] select-none pointer-events-auto"
             >
               {/* Very subtle ambient pulse glow behind badge */}
               <div
@@ -555,9 +615,12 @@ export function Hero() {
                   <span className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-signal ring-2 ring-white shadow-xs" />
                 </div>
 
-                {/* Company Name */}
+                {/* Company Name & Motto */}
                 <span className="mt-1 font-display text-[9px] sm:text-[10px] font-bold tracking-[0.2em] text-bone uppercase">
                   ODIFY
+                </span>
+                <span className="font-display text-[7px] sm:text-[8px] font-bold tracking-wider text-signal-soft uppercase">
+                  GROW · BUILD · SCALE
                 </span>
               </div>
             </div>

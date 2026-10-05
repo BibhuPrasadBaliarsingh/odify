@@ -51,7 +51,7 @@ export function About() {
             scrollTrigger: {
               trigger: visualRef.current,
               start: 'top 85%',
-              once: true,
+              toggleActions: 'play reverse play reverse',
             },
           }
         )
@@ -72,7 +72,7 @@ export function About() {
             scrollTrigger: {
               trigger: textColumnRef.current,
               start: 'top 82%',
-              once: true,
+              toggleActions: 'play reverse play reverse',
             },
           }
         )

@@ -31,7 +31,7 @@ export function Testimonials() {
             scrollTrigger: {
               trigger: cardsRef.current,
               start: 'top 85%',
-              once: true,
+              toggleActions: 'play reverse play reverse',
             },
           }
         )

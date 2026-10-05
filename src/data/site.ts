@@ -3,14 +3,46 @@
 
 export const site = {
   name: 'Odify',
+  fullName: 'Odify Digital Growth & Technology',
   domain: 'odify.agency',
   email: 'odify.agency@gmail.com',
   phone: '+91 7377714888',
   phoneHref: 'tel:+917377714888',
   whatsappHref: 'https://wa.me/917377714888',
-  tagline: 'Digital experiences for ambitious businesses.',
+  tagline: 'Websites | Software | Google Ads | Meta Ads | SEO | Social Media Management',
+  mission: 'A digital growth and technology agency helping businesses acquire customers, build better digital experiences, and automate their operations.',
   year: 2026,
 } as const
+
+export const capabilityPillars = [
+  {
+    verb: 'GROW',
+    verbLabel: 'Marketing & Advertising',
+    division: 'Odify Growth',
+    subtitle: 'Digital Marketing & Performance',
+  },
+  {
+    verb: 'BUILD',
+    verbLabel: 'Websites & Applications',
+    division: 'Odify Web',
+    subtitle: 'Websites & Web Applications',
+  },
+  {
+    verb: 'SCALE',
+    verbLabel: 'Technology & Automation',
+    division: 'Odify Tech',
+    subtitle: 'Software, Automation & SaaS',
+  },
+] as const
+
+export const servicePills = [
+  'Websites',
+  'Software',
+  'Google Ads',
+  'Meta Ads',
+  'SEO',
+  'Social Media Management',
+] as const
 
 export const navLinks = [
   { label: 'Home', href: '#home' },
@@ -41,15 +73,14 @@ export const footerColumns = [
     ],
   },
   {
-    heading: 'Services',
+    heading: 'Divisions & Services',
     links: [
-      { label: 'Web Development', href: '#services' },
-      { label: 'Mobile App Development', href: '#services' },
-      { label: 'AI Solutions', href: '#services' },
-      { label: 'Custom Software', href: '#services' },
-      { label: 'UI/UX Development', href: '#services' },
-      { label: 'Business Automation', href: '#services' },
-      { label: 'Digital Marketing', href: '#services' },
+      { label: '01 Growth — Digital Marketing', href: '#services' },
+      { label: '02 Web — Websites & Web Apps', href: '#services' },
+      { label: '03 Tech — Software & Automation', href: '#services' },
+      { label: 'Google & Meta Ads', href: '#services' },
+      { label: 'SEO & Search Optimization', href: '#services' },
+      { label: 'Custom Software & CRM', href: '#services' },
     ],
   },
 ] as const
@@ -59,31 +90,28 @@ export const trustLogos = ['NOVA', 'VERTEX', 'LUMEN', 'AXIS', 'NEXA', 'ORBIT'] a
 
 export const differentiators = [
   {
-    title: 'Strategy First',
-    description: 'Every project starts with understanding the business, audience and goals.',
+    title: 'Customer Acquisition First',
+    description: 'We align marketing, design, and tech around getting real, paying clients for your business.',
   },
   {
-    title: 'Design That Matters',
-    description: 'We combine aesthetics with usability and conversion.',
+    title: 'Modern High-Conversion Web',
+    description: 'Websites and web apps crafted for speed, search rankings, and effortless conversion.',
   },
   {
-    title: 'Technology That Performs',
-    description: 'Fast, scalable and maintainable digital experiences.',
+    title: 'Scalable Software & Automation',
+    description: 'Custom tools, admin panels, and automated workflows that streamline your entire operation.',
   },
   {
-    title: 'Built For Growth',
-    description: 'We think beyond launch and focus on long-term results.',
+    title: 'Full-Cycle Partnership',
+    description: 'From initial ad campaign to scalable backend architecture, we grow alongside you.',
   },
 ] as const
 
 export const projectTypes = [
-  'Web Development',
-  'Mobile App Development',
-  'AI Solutions',
-  'Custom Software',
-  'UI/UX Development',
-  'Business Automation',
-  'Digital Marketing',
-  'SEO & Performance Growth',
+  '01 Growth — Google Ads / Meta Ads / SEO / Social Media',
+  '02 Web — Business Websites / Landing Pages / Web Apps',
+  '03 Tech — Custom Software / Automation / CRM / APIs',
+  'Full-Stack Growth & Technology Partnership',
   'Other',
 ] as const
+

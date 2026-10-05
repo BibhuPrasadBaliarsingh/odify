@@ -33,7 +33,7 @@ export function SectionHeading({
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top 85%',
-          once: true,
+          toggleActions: 'play reverse play reverse',
         },
         defaults: { ease: 'power3.out' },
       })

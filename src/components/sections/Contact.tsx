@@ -59,7 +59,7 @@ export function Contact() {
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 82%',
-            once: true,
+            toggleActions: 'play reverse play reverse',
           },
         }
       )

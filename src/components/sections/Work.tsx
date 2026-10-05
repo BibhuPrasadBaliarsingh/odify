@@ -118,7 +118,7 @@ export function Work() {
                 scrollTrigger: {
                   trigger: card,
                   start: 'top 85%',
-                  once: true,
+                  toggleActions: 'play reverse play reverse',
                 },
               }
             )
@@ -137,7 +137,7 @@ export function Work() {
                 scrollTrigger: {
                   trigger: card,
                   start: 'top 82%',
-                  once: true,
+                  toggleActions: 'play reverse play reverse',
                 },
               }
             )

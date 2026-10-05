@@ -15,31 +15,33 @@ export function Statistics() {
     if (prefersReducedMotion || !sectionRef.current) return
 
     const ctx = gsap.context(() => {
-      // Counter animation triggered by ScrollTrigger
+      const runCounters = () => {
+        statistics.forEach((stat, index) => {
+          const el = numbersRef.current[index]
+          if (!el) return
+
+          const counterObj = { val: 0 }
+          gsap.to(counterObj, {
+            val: stat.targetValue,
+            duration: 2.0,
+            ease: 'power2.out',
+            onUpdate: () => {
+              const formatted =
+                stat.decimals !== undefined
+                  ? counterObj.val.toFixed(stat.decimals)
+                  : Math.round(counterObj.val).toString()
+              el.innerText = `${stat.prefix || ''}${formatted}${stat.suffix || ''}`
+            },
+          })
+        })
+      }
+
+      // Counter animation triggered by ScrollTrigger on every scroll
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top 80%',
-        once: true,
-        onEnter: () => {
-          statistics.forEach((stat, index) => {
-            const el = numbersRef.current[index]
-            if (!el) return
-
-            const counterObj = { val: 0 }
-            gsap.to(counterObj, {
-              val: stat.targetValue,
-              duration: 2.2,
-              ease: 'power2.out',
-              onUpdate: () => {
-                const formatted =
-                  stat.decimals !== undefined
-                    ? counterObj.val.toFixed(stat.decimals)
-                    : Math.round(counterObj.val).toString()
-                el.innerText = `${stat.prefix || ''}${formatted}${stat.suffix || ''}`
-              },
-            })
-          })
-        },
+        onEnter: runCounters,
+        onEnterBack: runCounters,
       })
     }, sectionRef)
 
