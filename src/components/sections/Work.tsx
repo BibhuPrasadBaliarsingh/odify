@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
-import { projects } from '@/data/projects'
+import { projects, projectsSectionData } from '@/data/projects'
 import { scrollToTarget } from '@/lib/lenis'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -32,24 +32,23 @@ function ProjectVisual({ hue, name }: { hue: number; name: string }) {
           <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
         </div>
         <span className="font-mono text-[10px] text-white/40 tracking-wider">
-          {name.toLowerCase().replace(/\s+/g, '')}.app
+          {name.toLowerCase().replace(/[^a-z0-9]/g, '')}.com
         </span>
         <span className="h-2 w-2 rounded-full bg-white/20" />
       </div>
 
-      {/* Simulated high-tech dashboard widgets inside window */}
+      {/* Simulated high-tech dashboard / showcase interface */}
       <div className="absolute inset-x-6 bottom-6 top-12 grid grid-cols-12 grid-rows-6 gap-3">
-        {/* Main analytics metric chart container */}
         <div
           className="col-span-8 row-span-4 rounded-xl border border-white/10 p-4"
           style={{ background: `hsl(${hue} 40% 16% / 0.5)` }}
         >
           <div className="flex items-center justify-between">
-            <div className="h-2.5 w-24 rounded-full bg-white/20" />
+            <div className="h-2.5 w-24 rounded-full bg-white/25" />
             <div className="h-2 w-12 rounded-full bg-signal" />
           </div>
           <div className="mt-4 flex items-end gap-1.5 h-16 pt-2">
-            {[40, 65, 50, 85, 70, 95, 80, 100, 75, 90].map((h, i) => (
+            {[45, 65, 55, 85, 70, 95, 80, 100, 75, 92].map((h, i) => (
               <div
                 key={i}
                 className="flex-1 rounded-t-sm"
@@ -63,19 +62,17 @@ function ProjectVisual({ hue, name }: { hue: number; name: string }) {
           </div>
         </div>
 
-        {/* Side summary panel */}
         <div className="col-span-4 row-span-4 flex flex-col gap-2">
           <div className="flex-1 rounded-xl border border-white/10 bg-white/5 p-3 flex flex-col justify-between">
-            <div className="h-2 w-14 rounded-full bg-white/20" />
+            <div className="h-2 w-14 rounded-full bg-white/25" />
             <div className="h-3 w-8 rounded-full bg-signal/80" />
           </div>
           <div className="flex-1 rounded-xl border border-white/10 bg-white/5 p-3 flex flex-col justify-between">
             <div className="h-2 w-10 rounded-full bg-white/20" />
-            <div className="h-2 w-16 rounded-full bg-white/10" />
+            <div className="h-2 w-16 rounded-full bg-white/15" />
           </div>
         </div>
 
-        {/* Bottom status strip */}
         <div
           className="col-span-12 row-span-2 flex items-center justify-between rounded-xl border border-white/10 px-4"
           style={{ background: `hsl(${hue} 50% 20% / 0.4)` }}
@@ -84,7 +81,7 @@ function ProjectVisual({ hue, name }: { hue: number; name: string }) {
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
             <div className="h-2 w-28 rounded-full bg-white/30" />
           </div>
-          <div className="h-2 w-16 rounded-full bg-white/15" />
+          <div className="h-2 w-16 rounded-full bg-white/20" />
         </div>
       </div>
     </div>
@@ -106,11 +103,10 @@ export function Work() {
           const img = card.querySelector('.project-visual-image')
           const content = card.querySelector('.project-card-content')
 
-          // GSAP ScrollTrigger for scale 1.08 -> 1 on image
           if (img) {
             gsap.fromTo(
               img,
-              { scale: 1.08 },
+              { scale: 1.06 },
               {
                 scale: 1,
                 duration: 0.9,
@@ -124,11 +120,10 @@ export function Work() {
             )
           }
 
-          // GSAP ScrollTrigger for content opacity 0 -> 1, translateY 30px -> 0
           if (content) {
             gsap.fromTo(
               content,
-              { opacity: 0, y: 30 },
+              { opacity: 0, y: 25 },
               {
                 opacity: 1,
                 y: 0,
@@ -150,58 +145,58 @@ export function Work() {
   }, [])
 
   return (
-    <section ref={containerRef} id="work" className="relative py-24 sm:py-32">
+    <section ref={containerRef} id="work" className="relative py-14 sm:py-20">
       <Container>
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
-            eyebrow="Selected Engineering Work"
-            heading="Case studies in performance, scalability &amp; conversion"
-            subheading="A curated preview of digital architectures, product systems, and custom software delivered for enterprise clients."
+            eyebrow={projectsSectionData.eyebrow}
+            heading={projectsSectionData.heading}
+            subheading={projectsSectionData.subheading}
           />
           <div className="shrink-0">
             <Button
               href="#contact"
               variant="secondary"
-              className="text-sm"
+              className="text-xs sm:text-sm"
               onClick={() => scrollToTarget('#contact')}
             >
-              Discuss Your Project
-              <ArrowRight size={15} />
+              Start a Project
+              <ArrowRight size={14} />
             </Button>
           </div>
         </div>
 
         {/* Project cards grid */}
-        <div ref={listRef} className="mt-14 grid gap-10 sm:grid-cols-2">
+        <div ref={listRef} className="mt-10 sm:mt-12 grid gap-6 sm:grid-cols-2">
           {projects.map((project) => (
             <div
               key={project.name}
-              className="group flex flex-col justify-between rounded-3xl border border-line bg-surface p-5 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-signal/40 hover:shadow-lg"
+              className="group flex flex-col justify-between rounded-3xl border border-line bg-surface p-5 sm:p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-signal/40 hover:shadow-lg"
             >
               <div>
-                {/* Visual preview with zoom */}
+                {/* Visual preview */}
                 <div className="overflow-hidden rounded-2xl bg-ink">
                   <ProjectVisual hue={project.hue} name={project.name} />
                 </div>
 
                 {/* Content block */}
-                <div className="project-card-content mt-6 flex flex-col gap-4 px-2">
+                <div className="project-card-content mt-6 flex flex-col gap-3.5 px-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-signal-soft">
-                      {project.category}
+                    <span className="font-display text-xs font-semibold uppercase tracking-[0.18em] text-signal-soft">
+                      {project.category} · {project.year}
                     </span>
                     {project.stat ? (
-                      <span className="font-mono text-xs font-semibold text-bone-faint">
+                      <span className="font-mono text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                         {project.stat}
                       </span>
                     ) : null}
                   </div>
 
-                  <h3 className="font-display text-2xl font-semibold text-bone transition-colors group-hover:text-signal-soft">
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-bone transition-colors group-hover:text-signal-soft">
                     {project.name}
                   </h3>
 
-                  <p className="text-sm leading-relaxed text-bone-dim">
+                  <p className="text-xs sm:text-sm leading-relaxed text-bone-dim">
                     {project.description}
                   </p>
 
@@ -220,16 +215,16 @@ export function Work() {
               </div>
 
               {/* View Project Action */}
-              <div className="mt-6 flex items-center justify-between border-t border-line-soft px-2 pt-4">
-                <Button
-                  href="#contact"
-                  variant="ghost"
-                  className="!px-0 !py-0 text-xs font-semibold uppercase tracking-wider text-bone group-hover:text-signal-soft"
-                  onClick={() => scrollToTarget('#contact')}
+              <div className="mt-6 flex items-center justify-between border-t border-line-soft px-1 pt-4">
+                <a
+                  href={project.externalUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 font-display text-xs font-bold uppercase tracking-wider text-bone transition-colors hover:text-signal"
                 >
-                  {project.linkText || 'View Case Study'}
-                  <ArrowUpRight size={14} className="ml-1 text-signal-soft transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Button>
+                  <span>View Project</span>
+                  <ArrowUpRight size={14} className="text-signal transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
                 <span className="font-mono text-xs text-bone-faint font-semibold">
                   {project.index}
                 </span>

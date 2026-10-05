@@ -5,41 +5,42 @@ export interface ProcessStep {
   details: string
 }
 
+export const processSectionData = {
+  eyebrow: 'Our Process',
+  heading: 'A considered process, refined over every engagement',
+  subheading:
+    'Five deliberate stages that carry your business from first conversation to lasting growth.',
+}
+
 export const processSteps: ProcessStep[] = [
   {
     index: '01',
     title: 'Discover',
-    description: 'Deep-dive analysis into architecture requirements, user personas, technical bottlenecks, and commercial objectives.',
-    details: 'Stakeholder interviews, system audits, and feasibility analysis.',
+    description: 'Understanding your business goals and challenges.',
+    details: 'In-depth stakeholder interviews, requirements gathering, and target audience analysis.',
   },
   {
     index: '02',
     title: 'Plan',
-    description: 'Defining technical milestones, technology stacks, sprint cadences, and clear product delivery roadmaps.',
-    details: 'System architecture specs, sprint breakdowns, and deliverable timelines.',
+    description: 'Creating a customized strategy and roadmap.',
+    details: 'Architecture design, tech stack selection, milestone schedules, and wireframes.',
   },
   {
     index: '03',
-    title: 'Design',
-    description: 'Crafting responsive design systems, interactive prototypes, and production UI components with micro-interactions.',
-    details: 'Figma wireframes, design tokens, and user flow validation.',
+    title: 'Build',
+    description: 'Developing and implementing the solution.',
+    details: 'Modern clean code, responsive component development, and agile sprint deliveries.',
   },
   {
     index: '04',
-    title: 'Develop',
-    description: 'Clean, type-safe engineering adhering to modular patterns, automated tests, and performance benchmarks.',
-    details: 'Modern frameworks, clean APIs, continuous integration, and version control.',
+    title: 'Optimize',
+    description: 'Improving performance through continuous analysis.',
+    details: 'Speed audits, SEO fine-tuning, conversion tracking, and quality assurance.',
   },
   {
     index: '05',
-    title: 'Test',
-    description: 'Rigorous end-to-end quality assurance, load testing, security audits, and cross-device performance testing.',
-    details: 'Unit testing, responsive verification, and penetration tests.',
-  },
-  {
-    index: '06',
-    title: 'Launch',
-    description: 'Zero-downtime deployment, infrastructure scaling, analytics monitoring, and proactive post-launch maintenance.',
-    details: 'Automated CI/CD pipelines, analytics telemetry, and ongoing optimization.',
+    title: 'Grow',
+    description: 'Supporting long-term business growth and scalability.',
+    details: 'Ongoing maintenance, feature enhancements, search rank tracking, and tech support.',
   },
 ]

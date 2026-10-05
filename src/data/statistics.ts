@@ -8,35 +8,40 @@ export interface StatItem {
   description: string
 }
 
+export const statisticsHeading = {
+  eyebrow: 'Statistics Section',
+  heading: 'Delivering exceptional results through innovation and dedication',
+  subheading:
+    'Our track record speaks for itself. We combine engineering excellence, user empathy, and digital strategy to produce impactful outcomes for clients across Odisha and India.',
+}
+
 export const statistics: StatItem[] = [
   {
     id: 'projects',
-    targetValue: 50,
+    targetValue: 150,
     suffix: '+',
-    label: 'Digital Solutions Built',
-    description: 'Modern web apps, mobile products, and AI workflows deployed successfully.',
+    label: 'Projects Completed',
+    description: 'High-performing websites, web apps, e-commerce stores, and software solutions deployed.',
   },
   {
-    id: 'uptime',
-    targetValue: 99.4,
-    suffix: '%',
-    decimals: 1,
-    label: 'System Uptime & Reliability',
-    description: 'High-availability infrastructure engineered for zero unplanned interruptions.',
+    id: 'industries',
+    targetValue: 15,
+    suffix: '+',
+    label: 'Industries Served',
+    description: 'Healthcare, Real Estate, Mining, Retail, Education, Hospitality, and Technology sectors.',
   },
   {
     id: 'satisfaction',
     targetValue: 98,
     suffix: '%',
-    label: 'Client Retention & Satisfaction',
-    description: 'Long-term product partnerships supporting scalable technical growth.',
+    label: 'Client Satisfaction',
+    description: 'Committed to transparent communication, on-time delivery, and measurable long-term results.',
   },
   {
-    id: 'speed',
-    targetValue: 3.2,
-    suffix: 'x',
-    decimals: 1,
-    label: 'Average Performance Gain',
-    description: 'Lighthouse score and loading speed improvements across client platforms.',
+    id: 'experience',
+    targetValue: 5,
+    suffix: '+',
+    label: 'Years Experience',
+    description: 'Proven track record of engineering scalable digital platforms and driving online growth.',
   },
 ]

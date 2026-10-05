@@ -1,37 +1,48 @@
 // Central, easily editable configuration for site-wide content.
-// Update copy, links and contact details here rather than inside components.
+// Sequenced and structured around growwyldtech.com with Odify branding & details.
 
 export const site = {
   name: 'Odify',
-  fullName: 'Odify Digital Growth & Technology',
+  shortName: 'Odify',
+  fullName: 'Odify — IT Services & Digital Growth',
   domain: 'odify.agency',
   email: 'odify.agency@gmail.com',
   phone: '+91 7377714888',
+  phoneDisplay: '+91 7377714888',
   phoneHref: 'tel:+917377714888',
   whatsappHref: 'https://wa.me/917377714888',
-  tagline: 'Websites | Software | Google Ads | Meta Ads | SEO | Social Media Management',
-  mission: 'A digital growth and technology agency helping businesses acquire customers, build better digital experiences, and automate their operations.',
+  location: 'Nayapalli, Bhubaneswar, Odisha, India',
+  hours: 'Mon–Fri, 9:00–18:00 IST',
+  tagline: 'We build websites that work as hard as you do.',
+  subtagline: 'Fast, scalable, and search-ready platforms crafted for businesses in Bhubaneswar and beyond.',
+  mission:
+    'Odify is a trusted IT services and digital growth company in Odisha, India, offering web development, digital marketing, software solutions, and technology services for growing businesses.',
+  heroNarrative:
+    "Your website is more than just an online presence, it's often the first impression customers have of your business. A well-designed website builds trust, enhances user experience, and helps turn visitors into customers. As a Web Development Company in Bhubaneswar, we create websites and digital platforms designed around your business goals. Whether you need a corporate website, an e-commerce store, a custom web application, or a mobile-first solution, our focus is on building digital experiences that are fast, scalable, and easy to manage.",
   year: 2026,
 } as const
 
-export const capabilityPillars = [
+export const heroHighlights = [
   {
-    verb: 'GROW',
-    verbLabel: 'Marketing & Advertising',
-    division: 'Odify Growth',
-    subtitle: 'Digital Marketing & Performance',
+    title: 'Fast',
+    badge: '01',
+    description: 'Optimized load times',
+    detail: 'Sub-second rendering and lightweight code delivery for instant user interaction.',
+    accent: '#10b981',
   },
   {
-    verb: 'BUILD',
-    verbLabel: 'Websites & Applications',
-    division: 'Odify Web',
-    subtitle: 'Websites & Web Applications',
+    title: 'Scalable',
+    badge: '02',
+    description: 'Built to grow with you',
+    detail: 'Modular architecture designed to easily handle traffic spikes and business expansion.',
+    accent: '#f59e0b',
   },
   {
-    verb: 'SCALE',
-    verbLabel: 'Technology & Automation',
-    division: 'Odify Tech',
-    subtitle: 'Software, Automation & SaaS',
+    title: 'SEO',
+    badge: '03',
+    description: 'Search-ready by design',
+    detail: 'Clean semantic structure, metadata optimization, and fast indexing from day one.',
+    accent: '#6366f1',
   },
 ] as const
 
@@ -44,14 +55,17 @@ export const servicePills = [
   'Social Media Management',
 ] as const
 
+export const trustLogos = ['NOVA', 'VERTEX', 'LUMEN', 'AXIS', 'NEXA', 'ORBIT'] as const
+
 export const navLinks = [
   { label: 'Home', href: '#home' },
   { label: 'Services', href: '#services' },
-  { label: 'Technologies', href: '#technologies' },
-  { label: 'Work', href: '#work' },
   { label: 'Process', href: '#process' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Our Works', href: '#work' },
+  { label: 'Industries', href: '#industries' },
+  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'FAQs', href: '#faqs' },
+  { label: 'Contact US', href: '#contact' },
 ] as const
 
 export const socialLinks = [
@@ -63,55 +77,74 @@ export const socialLinks = [
 
 export const footerColumns = [
   {
-    heading: 'Company',
+    heading: 'Quick Links',
     links: [
-      { label: 'About', href: '#about' },
-      { label: 'Work', href: '#work' },
-      { label: 'Technologies', href: '#technologies' },
-      { label: 'Process', href: '#process' },
-      { label: 'Contact', href: '#contact' },
+      { label: 'Home', href: '#home' },
+      { label: 'About Us', href: '#growth' },
+      { label: 'Services', href: '#services' },
+      { label: 'Our Works', href: '#work' },
+      { label: 'Industries', href: '#industries' },
+      { label: 'FAQs', href: '#faqs' },
+      { label: 'Contact US', href: '#contact' },
     ],
   },
   {
-    heading: 'Divisions & Services',
+    heading: 'Services',
     links: [
-      { label: '01 Growth — Digital Marketing', href: '#services' },
-      { label: '02 Web — Websites & Web Apps', href: '#services' },
-      { label: '03 Tech — Software & Automation', href: '#services' },
-      { label: 'Google & Meta Ads', href: '#services' },
-      { label: 'SEO & Search Optimization', href: '#services' },
-      { label: 'Custom Software & CRM', href: '#services' },
+      { label: 'Web Development', href: '#services' },
+      { label: 'Mobile App Development', href: '#services' },
+      { label: 'E-commerce Solutions', href: '#services' },
+      { label: 'Cloud & DevOps', href: '#services' },
+      { label: 'UI/UX Design', href: '#services' },
+      { label: 'Digital Marketing', href: '#services' },
+      { label: 'Enterprise Solutions', href: '#services' },
+    ],
+  },
+  {
+    heading: 'Industries',
+    links: [
+      { label: 'Healthcare & Medical', href: '#industries' },
+      { label: 'Education & EdTech', href: '#industries' },
+      { label: 'Real Estate & Architecture', href: '#industries' },
+      { label: 'E-Commerce & Retail', href: '#industries' },
+      { label: 'Mining & Industrial', href: '#industries' },
+      { label: 'Hospitality & Tourism', href: '#industries' },
     ],
   },
 ] as const
 
-// Placeholder brand marks for the trust bar — illustrative only, not real clients.
-export const trustLogos = ['NOVA', 'VERTEX', 'LUMEN', 'AXIS', 'NEXA', 'ORBIT'] as const
-
 export const differentiators = [
   {
-    title: 'Customer Acquisition First',
-    description: 'We align marketing, design, and tech around getting real, paying clients for your business.',
+    title: 'Tailored Strategies',
+    description: 'Customized web and software strategies engineered specifically around your industry and target customers.',
   },
   {
-    title: 'Modern High-Conversion Web',
-    description: 'Websites and web apps crafted for speed, search rankings, and effortless conversion.',
+    title: 'End-to-End Expertise',
+    description: 'Full stack development, UI/UX design, cloud infrastructure, and digital marketing unified in one team.',
   },
   {
-    title: 'Scalable Software & Automation',
-    description: 'Custom tools, admin panels, and automated workflows that streamline your entire operation.',
+    title: 'Results-Driven Approach',
+    description: 'Focused on measurable performance, high Google search rankings, conversion rates, and revenue impact.',
   },
   {
-    title: 'Full-Cycle Partnership',
-    description: 'From initial ad campaign to scalable backend architecture, we grow alongside you.',
+    title: 'Transparent Collaboration',
+    description: 'Clear sprint timelines, direct communication with technical leads, and zero hidden costs.',
+  },
+  {
+    title: 'Scalable Solutions',
+    description: 'Future-ready architectures that smoothly scale with your business without requiring costly rebuilds.',
+  },
+  {
+    title: 'Innovation Focused',
+    description: 'Leveraging modern frameworks, fast CDN delivery, security best practices, and search intelligence.',
   },
 ] as const
 
 export const projectTypes = [
-  '01 Growth — Google Ads / Meta Ads / SEO / Social Media',
-  '02 Web — Business Websites / Landing Pages / Web Apps',
-  '03 Tech — Custom Software / Automation / CRM / APIs',
-  'Full-Stack Growth & Technology Partnership',
-  'Other',
+  'Web Development & Corporate Websites',
+  'Mobile App Development (iOS & Android)',
+  'E-Commerce & Online Storefront',
+  'Digital Marketing & SEO Dominance',
+  'Custom Software & Cloud Solutions',
+  'UI/UX Design & Branding',
 ] as const
-

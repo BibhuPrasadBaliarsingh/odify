@@ -4,7 +4,7 @@ import { Star } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
-import { testimonials } from '@/data/testimonials'
+import { testimonials, testimonialsSectionData } from '@/data/testimonials'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -21,12 +21,12 @@ export function Testimonials() {
       if (cards) {
         gsap.fromTo(
           cards,
-          { opacity: 0, y: 40 },
+          { opacity: 0, y: 35 },
           {
             opacity: 1,
             y: 0,
             duration: 0.8,
-            stagger: 0.12,
+            stagger: 0.1,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: cardsRef.current,
@@ -42,56 +42,53 @@ export function Testimonials() {
   }, [])
 
   return (
-    <section ref={containerRef} className="relative py-24 sm:py-32">
+    <section ref={containerRef} id="testimonials" className="relative py-14 sm:py-20">
       <Container>
         <SectionHeading
           align="center"
-          eyebrow="Client Testimonials"
-          heading="Trusted by technology leaders &amp; ambitious product teams"
-          subheading="Here is how our engineering partnerships have accelerated launch timelines and revenue metrics."
+          eyebrow={testimonialsSectionData.eyebrow}
+          heading={testimonialsSectionData.heading}
+          subheading={testimonialsSectionData.subheading}
         />
 
         <div
           ref={cardsRef}
-          className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-10 sm:mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-2"
         >
           {testimonials.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col justify-between rounded-3xl border border-line bg-surface p-8 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-md"
+              className="flex flex-col justify-between rounded-3xl border border-line bg-surface p-7 sm:p-8 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-md"
             >
               <div>
                 <div className="flex items-center justify-between">
-                  <div className="flex gap-1 text-signal">
+                  <div className="flex gap-1 text-amber-500">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={14} fill="currentColor" />
+                      <Star key={i} size={15} fill="currentColor" />
                     ))}
                   </div>
                   {item.metrics ? (
-                    <span className="rounded-full border border-signal/25 bg-signal-dim/60 px-2.5 py-0.5 font-mono text-[11px] font-semibold text-signal-soft">
+                    <span className="rounded-full border border-emerald-500/25 bg-emerald-50 px-2.5 py-0.5 font-mono text-[11px] font-semibold text-emerald-800">
                       {item.metrics}
                     </span>
                   ) : null}
                 </div>
 
-                <p className="mt-6 font-display text-sm leading-relaxed text-bone italic">
-                  "{item.quote}"
+                <p className="mt-5 font-display text-sm leading-relaxed text-bone italic">
+                  &ldquo;{item.quote}&rdquo;
                 </p>
               </div>
 
-              <div className="mt-8 flex items-center gap-3 border-t border-line-soft pt-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-signal-dim font-display text-xs font-bold text-signal-soft">
-                  {item.author
-                    .split(' ')
-                    .map((n) => n[0])
-                    .join('')}
+              <div className="mt-7 flex items-center gap-3.5 border-t border-line-soft pt-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-signal-dim font-display text-xs font-bold text-signal">
+                  {item.avatarInitial}
                 </div>
                 <div>
-                  <h4 className="font-display text-sm font-semibold text-bone">
+                  <h4 className="font-display text-sm font-bold text-bone">
                     {item.author}
                   </h4>
                   <p className="text-xs text-bone-dim">
-                    {item.role}, <span className="font-medium text-bone">{item.company}</span>
+                    {item.role} · <span className="font-semibold text-bone">{item.company}</span>
                   </p>
                 </div>
               </div>

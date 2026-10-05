@@ -3,59 +3,77 @@ export interface Project {
   index: string
   name: string
   category: string
+  year: string
   description: string
   technologies: string[]
+  externalUrl: string
   hue: number
   stat?: string
   linkText?: string
 }
 
+export const projectsSectionData = {
+  eyebrow: 'Our Works',
+  heading: 'Recent Projects',
+  subheading:
+    'A curated look at recent work — websites, platforms and growth strategies built for businesses that wanted something better than the standard.',
+}
+
 export const projects: Project[] = [
   {
+    id: '01',
     index: '01',
-    name: 'Nova Finance',
-    category: 'Fintech Platform & Real-Time Analytics',
+    name: 'INFINITY SPACE',
+    category: 'Website · Digital Marketing',
+    year: '2026',
     description:
-      'A high-trust financial dashboard engineered around low-latency market data, automated compliance reporting, and intuitive transaction workflows.',
-    technologies: ['React', 'Next.js', 'Node.js', 'Tailwind', 'MongoDB'],
+      'Infinity Space is a modern interior design studio in Odisha, specializing in stylish, functional, and customized residential and commercial interiors.',
+    technologies: ['Modern Web Architecture', 'SEO Optimization', 'Lead Capture Funnels', 'Digital Marketing'],
+    externalUrl: 'https://infinityspaceodisha.com/',
     hue: 215,
-    stat: '99.99% Execution Uptime',
-    linkText: 'View Case Study',
+    stat: '+240% Inbound Leads',
+    linkText: 'View Project',
   },
   {
     id: '02',
     index: '02',
-    name: 'Vertex Cloud',
-    category: 'Enterprise SaaS & Developer Platform',
+    name: 'BLUE EDGE TRADE VENTURE PVT. LTD',
+    category: 'Corporate Website',
+    year: '2026',
     description:
-      'A scalable web infrastructure management portal featuring visual pipeline builders, multi-cloud monitoring, and team permission controls.',
-    technologies: ['React Native', 'Docker', 'Express', 'Tailwind', 'Gemini AI'],
-    hue: 35,
-    stat: '4.2x Faster Deployments',
-    linkText: 'View Platform',
+      'Blue Edge Trade Venture Pvt. Ltd. is a leading mining company in Odisha, providing reliable mining, mineral trading, and related industrial solutions.',
+    technologies: ['Corporate Web Platform', 'Mobile Responsive', 'Industrial Solutions', 'Fast Load Times'],
+    externalUrl: 'https://blueedgetrade.in/',
+    hue: 38,
+    stat: 'Mining & Mineral Footprint',
+    linkText: 'View Project',
   },
   {
     id: '03',
     index: '03',
-    name: 'Luma Commerce',
-    category: 'AI-Powered E-Commerce Architecture',
+    name: 'JC ENTERPRISES',
+    category: 'E-commerce · Digital Marketing',
+    year: '2026',
     description:
-      'A headless omnichannel storefront built for high peak-volume sales, dynamic personalization engines, and frictionless checkout conversion.',
-    technologies: ['Next.js', 'Cloudinary', 'Firebase', 'NVIDIA AI APIs'],
-    hue: 270,
-    stat: '+38% Cart Conversion',
-    linkText: 'View Storefront',
+      'J.C. Enterprise is a trusted supplier of electrical and electronic components, offering quality products and reliable solutions for various industrial and commercial needs.',
+    technologies: ['E-Commerce Architecture', 'Product Catalog', 'Search Visibility', 'B2B Inquiries'],
+    externalUrl: 'https://jcenterprise.co.in/',
+    hue: 160,
+    stat: '+180% Product Reach',
+    linkText: 'View Project',
   },
   {
     id: '04',
     index: '04',
-    name: 'Astra Pulse',
-    category: 'Intelligent Workflow Automation',
+    name: 'WWE TATTOO STUDIO',
+    category: 'Custom Software · Automation',
+    year: '2026',
     description:
-      'An enterprise operations hub that unifies cross-departmental APIs, automated customer triage, and AI-driven document intelligence.',
-    technologies: ['React', 'Expo', 'Node.js', 'Gemini', 'Express'],
-    hue: 160,
-    stat: '65% Time Saved Weekly',
-    linkText: 'Explore System',
+      'WWE Tattoo Studio is a professional tattoo studio in Bhubaneswar specializing in custom tattoos, portrait tattoos, cover-ups, tattoo removal, and piercing with a focus on creativity, precision, and hygiene.',
+    technologies: ['Appointment Booking Engine', 'Automation CRM', 'Interactive Gallery', 'Mobile First'],
+    externalUrl: 'https://wwetattoostudio.in/',
+    hue: 275,
+    stat: 'Automated Booking System',
+    linkText: 'View Project',
   },
 ]

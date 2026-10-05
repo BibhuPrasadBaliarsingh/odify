@@ -2,7 +2,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useEffect, useRef } from 'react'
 import { Container } from '@/components/ui/Container'
-import { statistics } from '@/data/statistics'
+import { SectionHeading } from '@/components/ui/SectionHeading'
+import { statistics, statisticsHeading } from '@/data/statistics'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -36,7 +37,6 @@ export function Statistics() {
         })
       }
 
-      // Counter animation triggered by ScrollTrigger on every scroll
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top 80%',
@@ -51,20 +51,29 @@ export function Statistics() {
   return (
     <section
       ref={sectionRef}
-      className="relative border-y border-line-soft bg-ink-soft py-20 sm:py-24"
+      className="relative border-y border-line-soft bg-ink-soft py-12 sm:py-16"
     >
       <Container>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-8 sm:mb-10">
+          <SectionHeading
+            align="center"
+            eyebrow={statisticsHeading.eyebrow}
+            heading={statisticsHeading.heading}
+            subheading={statisticsHeading.subheading}
+          />
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {statistics.map((stat, i) => (
             <div
               key={stat.id}
-              className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-6 shadow-xs transition-transform duration-300 hover:-translate-y-1"
+              className="flex flex-col gap-1.5 rounded-2xl border border-line bg-surface p-5 sm:p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-signal/40 hover:shadow-md"
             >
               <span
                 ref={(el) => {
                   numbersRef.current[i] = el
                 }}
-                className="font-display text-4xl font-semibold tracking-tight text-bone sm:text-5xl"
+                className="font-display text-4xl font-bold tracking-tight text-bone sm:text-5xl"
               >
                 0{stat.suffix || ''}
               </span>

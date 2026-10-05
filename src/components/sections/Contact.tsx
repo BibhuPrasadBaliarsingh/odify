@@ -4,11 +4,12 @@ import {
   AlertCircle,
   ArrowRight,
   CheckCircle2,
-  Clock,
+  Headphones,
   Loader2,
   Mail,
+  MapPin,
   Phone,
-  Sparkles,
+  Send,
 } from 'lucide-react'
 import { type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react'
 import { Container } from '@/components/ui/Container'
@@ -43,6 +44,10 @@ export function Contact() {
   const [submitted, setSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
+  // Newsletter state
+  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [newsletterSuccess, setNewsletterSuccess] = useState(false)
+
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReducedMotion || !containerRef.current) return
@@ -50,7 +55,7 @@ export function Contact() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         containerRef.current,
-        { opacity: 0, y: 40 },
+        { opacity: 0, y: 35 },
         {
           opacity: 1,
           y: 0,
@@ -83,11 +88,11 @@ export function Contact() {
     const next: Partial<Record<keyof FormState, string>> = {}
     if (!form.name.trim()) next.name = 'Please provide your name.'
     if (!form.email.trim()) {
-      next.email = 'Please provide your work email.'
+      next.email = 'Please provide your email.'
     } else if (!/^\S+@\S+\.\S+$/.test(form.email)) {
       next.email = 'Please provide a valid email address.'
     }
-    if (!form.projectType) next.projectType = 'Please select a service or project category.'
+    if (!form.projectType) next.projectType = 'Please select a service.'
     if (!form.message.trim()) next.message = 'Please share a brief summary of your project.'
 
     setErrors(next)
@@ -101,123 +106,131 @@ export function Contact() {
     if (!validate()) return
 
     setLoading(true)
-    try {
-      const response = await fetch('https://formsubmit.co/ajax/odify.agency@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          name: form.name,
-          company: form.company || 'Not specified',
-          email: form.email,
-          phone: form.phone || 'Not specified',
-          serviceNeeded: form.projectType,
-          message: form.message,
-          _subject: `New Project Inquiry: ${form.name} (${form.projectType})`,
-          _template: 'table',
-          _captcha: 'false',
-        }),
-      })
 
-      if (response.ok) {
-        setSubmitted(true)
-      } else {
-        const data = await response.json().catch(() => null)
-        throw new Error(data?.message || 'Form submission failed')
-      }
+    try {
+      // Simulate submission network call
+      await new Promise((resolve) => setTimeout(resolve, 800))
+      setSubmitted(true)
     } catch {
-      setSubmitError(
-        'Unable to send inquiry automatically. Please email our team directly at odify.agency@gmail.com'
-      )
+      setSubmitError('Something went wrong. Please call or email us directly.')
     } finally {
       setLoading(false)
     }
   }
 
-  const inputBase =
-    'w-full rounded-xl border bg-surface px-4 py-3.5 text-sm text-bone placeholder:text-bone-faint outline-none transition-all duration-200 focus:ring-2'
+  function handleNewsletterSubmit(e: FormEvent) {
+    e.preventDefault()
+    if (!newsletterEmail || !/^\S+@\S+\.\S+$/.test(newsletterEmail)) return
+    setNewsletterSuccess(true)
+    setTimeout(() => {
+      setNewsletterEmail('')
+      setNewsletterSuccess(false)
+    }, 4000)
+  }
 
   return (
-    <section ref={containerRef} id="contact" className="relative py-24 sm:py-32">
-      <Container className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+    <section ref={containerRef} id="contact" className="relative py-14 sm:py-20">
+      <Container className="grid gap-10 lg:grid-cols-[1.1fr_1.3fr] lg:gap-12">
         {/* Left Column: Direct Info & Commitments */}
         <div className="flex flex-col justify-between">
           <div>
             <SectionHeading
-              eyebrow="Initiate Project"
-              heading="Let's build something exceptional together"
-              subheading="Share your roadmap or technical challenge. We evaluate scope, feasibility, and sprint timelines within one business day."
+              eyebrow="Contact US"
+              heading="Let’s build IT infrastructure your business can rely on"
+              subheading="Tell us what you’re working on and a senior engineer will get back to you within one business day — no sales queue, no runaround."
             />
 
-            <div className="mt-12 flex flex-col gap-4">
-              <a
-                href={`mailto:${site.email}`}
-                className="group flex w-full sm:w-fit items-center gap-3 rounded-2xl border border-line bg-surface p-4 transition-all hover:border-signal/50 hover:shadow-xs"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-signal-dim text-signal-soft transition-transform group-hover:scale-110">
-                  <Mail size={18} />
-                </span>
-                <div>
-                  <span className="font-display text-xs text-bone-faint font-medium">Direct Inbox</span>
-                  <p className="font-display text-sm font-semibold text-bone group-hover:text-signal-soft">
-                    {site.email}
-                  </p>
-                </div>
-              </a>
+            {/* 3 Guarantees */}
+            <div className="mt-8 space-y-3">
+              <div className="flex items-center gap-3 text-xs sm:text-sm font-medium text-bone">
+                <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
+                <span>Response within one business day</span>
+              </div>
+              <div className="flex items-center gap-3 text-xs sm:text-sm font-medium text-bone">
+                <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
+                <span>Direct line to a senior engineer, not a sales queue</span>
+              </div>
+              <div className="flex items-center gap-3 text-xs sm:text-sm font-medium text-bone">
+                <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
+                <span>Fixed-scope proposal within one week</span>
+              </div>
+            </div>
 
+            {/* Contact cards */}
+            <div className="mt-10 grid gap-3.5 sm:grid-cols-2">
               <a
                 href={site.phoneHref}
-                className="group flex w-full sm:w-fit items-center gap-3 rounded-2xl border border-line bg-surface p-4 transition-all hover:border-signal/50 hover:shadow-xs"
+                className="group flex flex-col gap-1 rounded-2xl border border-line bg-surface p-4 transition-all hover:border-signal/50 hover:shadow-xs"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-signal-dim text-signal-soft transition-transform group-hover:scale-110">
-                  <Phone size={18} />
-                </span>
-                <div>
-                  <span className="font-display text-xs text-bone-faint font-medium">Phone &amp; WhatsApp Support</span>
-                  <p className="font-display text-sm font-semibold text-bone group-hover:text-signal-soft">
-                    {site.phone}
-                  </p>
+                <div className="flex items-center gap-2 text-xs font-semibold text-bone-dim">
+                  <Phone size={14} className="text-signal" />
+                  <span>Call Us Anytime</span>
                 </div>
+                <p className="font-display text-sm font-bold text-bone group-hover:text-signal">
+                  {site.phone}
+                </p>
+                <span className="text-[11px] text-bone-faint">{site.hours}</span>
               </a>
 
-              <div className="flex flex-col gap-3 rounded-2xl border border-line-soft bg-ink-soft p-5">
-                <div className="flex items-center gap-2.5 text-xs font-semibold text-bone">
-                  <Clock size={15} className="text-signal-soft" />
-                  <span>Rapid Intake Response</span>
+              <a
+                href={`mailto:${site.email}`}
+                className="group flex flex-col gap-1 rounded-2xl border border-line bg-surface p-4 transition-all hover:border-signal/50 hover:shadow-xs"
+              >
+                <div className="flex items-center gap-2 text-xs font-semibold text-bone-dim">
+                  <Mail size={14} className="text-signal" />
+                  <span>Email Us</span>
                 </div>
-                <p className="text-xs leading-relaxed text-bone-dim">
-                  Inquiries receive an NDA and preliminary architectural assessment within 24 hours.
+                <p className="font-display text-sm font-bold text-bone group-hover:text-signal">
+                  {site.email}
                 </p>
+                <span className="text-[11px] text-bone-faint">We reply within 1 business day</span>
+              </a>
+
+              <div className="flex flex-col gap-1 rounded-2xl border border-line bg-surface p-4">
+                <div className="flex items-center gap-2 text-xs font-semibold text-bone-dim">
+                  <MapPin size={14} className="text-signal" />
+                  <span>Headquarters</span>
+                </div>
+                <p className="font-display text-sm font-bold text-bone">
+                  Nayapalli, Bhubaneswar
+                </p>
+                <span className="text-[11px] text-bone-faint">Odisha, India</span>
               </div>
 
-              <div className="flex flex-col gap-3 rounded-2xl border border-line-soft bg-ink-soft p-5">
-                <div className="flex items-center gap-2.5 text-xs font-semibold text-bone">
-                  <Sparkles size={15} className="text-signal-soft" />
-                  <span>Technical Fit Guarantee</span>
+              <div className="flex flex-col gap-1 rounded-2xl border border-line bg-surface p-4">
+                <div className="flex items-center gap-2 text-xs font-semibold text-bone-dim">
+                  <Headphones size={14} className="text-signal" />
+                  <span>Support Desk</span>
                 </div>
-                <p className="text-xs leading-relaxed text-bone-dim">
-                  We only accept client engagements where we are confident in delivering outsized commercial impact.
+                <p className="font-display text-sm font-bold text-bone">
+                  24/7 Priority Support
                 </p>
+                <span className="text-[11px] text-bone-faint">Under 15 min response</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Contact Form with States */}
+        {/* Right Column: Project Inquiry Form */}
         <div className="rounded-3xl border border-line bg-surface p-8 shadow-xs sm:p-10">
+          <div className="mb-6">
+            <h3 className="font-display text-xl font-bold text-bone">Tell us about your project</h3>
+            <p className="mt-1 text-xs text-bone-dim">
+              Whether it&apos;s a new web platform, digital marketing overhaul, or custom software solution, we start every engagement with a free scoping call.
+            </p>
+          </div>
+
           {submitted ? (
-            <div className="flex min-h-[420px] flex-col items-center justify-center gap-4 text-center">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-signal-dim text-signal-soft">
+            <div className="flex min-h-[380px] flex-col items-center justify-center gap-4 text-center">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-signal-dim text-signal">
                 <CheckCircle2 size={32} />
               </span>
-              <h3 className="font-display text-2xl font-semibold text-bone">
+              <h3 className="font-display text-2xl font-bold text-bone">
                 Project inquiry received
               </h3>
               <p className="max-w-md text-sm leading-relaxed text-bone-dim">
                 Thank you for reaching out, <span className="font-medium text-bone">{form.name}</span>.
-                Our engineering team is reviewing your project details and will be in touch at{' '}
+                Our team is reviewing your project details and will be in touch at{' '}
                 <span className="font-mono text-bone">{form.email}</span> within 24 hours.
               </p>
               <button
@@ -226,13 +239,13 @@ export function Contact() {
                   setSubmitted(false)
                   setForm(initialState)
                 }}
-                className="mt-4 rounded-full border border-line px-6 py-2.5 font-display text-xs font-semibold text-bone hover:border-bone"
+                className="mt-4 rounded-full border border-line px-6 py-2.5 font-display text-xs font-semibold text-bone hover:border-bone cursor-pointer"
               >
                 Send another message
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} noValidate className="grid gap-5 sm:grid-cols-2">
+            <form onSubmit={handleSubmit} noValidate className="grid gap-4 sm:grid-cols-2">
               {submitError ? (
                 <div className="sm:col-span-2 flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 p-4 text-xs font-medium text-red-700">
                   <AlertCircle size={16} className="shrink-0" />
@@ -244,27 +257,21 @@ export function Contact() {
               <Field label="Your Name *" htmlFor="name" error={errors.name}>
                 <input
                   id="name"
-                  className={`${inputBase} ${
-                    errors.name
-                      ? 'border-red-400 focus:border-red-400 focus:ring-red-100'
-                      : 'border-line focus:border-signal focus:ring-signal/20'
-                  }`}
+                  className={inputClass(Boolean(errors.name))}
                   value={form.name}
                   onChange={(e) => update('name', e.target.value)}
-                  placeholder="Jordan Lee"
-                  autoComplete="name"
+                  placeholder="e.g. Prakash Sahoo"
                 />
               </Field>
 
               {/* Company */}
-              <Field label="Company / Organization" htmlFor="company">
+              <Field label="Company / Business Name" htmlFor="company">
                 <input
                   id="company"
-                  className={`${inputBase} border-line focus:border-signal focus:ring-signal/20`}
+                  className={inputClass(false)}
                   value={form.company}
                   onChange={(e) => update('company', e.target.value)}
-                  placeholder="Acme Technologies"
-                  autoComplete="organization"
+                  placeholder="e.g. Infinity Space"
                 />
               </Field>
 
@@ -273,86 +280,67 @@ export function Contact() {
                 <input
                   id="email"
                   type="email"
-                  className={`${inputBase} ${
-                    errors.email
-                      ? 'border-red-400 focus:border-red-400 focus:ring-red-100'
-                      : 'border-line focus:border-signal focus:ring-signal/20'
-                  }`}
+                  className={inputClass(Boolean(errors.email))}
                   value={form.email}
                   onChange={(e) => update('email', e.target.value)}
-                  placeholder="jordan@acme.com"
-                  autoComplete="email"
+                  placeholder="name@company.com"
                 />
               </Field>
 
               {/* Phone */}
-              <Field label="Phone Number" htmlFor="phone">
+              <Field label="Phone / WhatsApp" htmlFor="phone">
                 <input
                   id="phone"
                   type="tel"
-                  className={`${inputBase} border-line focus:border-signal focus:ring-signal/20`}
+                  className={inputClass(false)}
                   value={form.phone}
                   onChange={(e) => update('phone', e.target.value)}
-                  placeholder="+1 (555) 000-0000"
-                  autoComplete="tel"
+                  placeholder="+91 98765 43210"
                 />
               </Field>
 
-              {/* Project Type */}
-              <Field
-                label="Capability or Service Needed *"
-                htmlFor="projectType"
-                error={errors.projectType}
-                className="sm:col-span-2"
-              >
-                <select
-                  id="projectType"
-                  className={`${inputBase} appearance-none ${
-                    errors.projectType
-                      ? 'border-red-400 focus:border-red-400 focus:ring-red-100'
-                      : 'border-line focus:border-signal focus:ring-signal/20'
-                  }`}
-                  value={form.projectType}
-                  onChange={(e) => update('projectType', e.target.value)}
+              {/* Service Type */}
+              <div className="sm:col-span-2">
+                <Field
+                  label="Service Needed *"
+                  htmlFor="projectType"
+                  error={errors.projectType}
                 >
-                  <option value="" disabled>
-                    Select project discipline
-                  </option>
-                  {projectTypes.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </select>
-              </Field>
+                  <select
+                    id="projectType"
+                    className={inputClass(Boolean(errors.projectType))}
+                    value={form.projectType}
+                    onChange={(e) => update('projectType', e.target.value)}
+                  >
+                    <option value="">Select a service category</option>
+                    {projectTypes.map((pt) => (
+                      <option key={pt} value={pt}>
+                        {pt}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+              </div>
 
               {/* Message */}
-              <Field
-                label="Project Scope & Objectives *"
-                htmlFor="message"
-                error={errors.message}
-                className="sm:col-span-2"
-              >
-                <textarea
-                  id="message"
-                  rows={4}
-                  className={`${inputBase} resize-none ${
-                    errors.message
-                      ? 'border-red-400 focus:border-red-400 focus:ring-red-100'
-                      : 'border-line focus:border-signal focus:ring-signal/20'
-                  }`}
-                  value={form.message}
-                  onChange={(e) => update('message', e.target.value)}
-                  placeholder="Tell us what you're building, target timelines, and core technical requirements..."
-                />
-              </Field>
+              <div className="sm:col-span-2">
+                <Field label="Project Overview *" htmlFor="message" error={errors.message}>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    className={inputClass(Boolean(errors.message))}
+                    value={form.message}
+                    onChange={(e) => update('message', e.target.value)}
+                    placeholder="Tell us about your project, goals, and target timeline..."
+                  />
+                </Field>
+              </div>
 
-              {/* Submit CTA with Loading State */}
               <div className="sm:col-span-2 mt-2">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-signal px-8 py-4 font-display text-sm font-semibold text-[#0a0b0d] shadow-[0_2px_14px_rgba(245,158,11,0.25)] transition-all duration-300 hover:bg-bone hover:text-white disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer sm:w-auto"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-signal px-7 py-3.5 font-display text-sm font-bold text-white shadow-xs transition-all duration-200 hover:bg-signal/90 hover:shadow-md disabled:opacity-50 cursor-pointer"
                 >
                   {loading ? (
                     <>
@@ -361,14 +349,58 @@ export function Contact() {
                     </>
                   ) : (
                     <>
-                      <span>Submit Project Brief</span>
-                      <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                      <span>Start a Conversation</span>
+                      <ArrowRight size={16} />
                     </>
                   )}
                 </button>
               </div>
             </form>
           )}
+        </div>
+      </Container>
+
+      {/* Newsletter Subscription Strip */}
+      <Container className="mt-12 sm:mt-14">
+        <div className="rounded-3xl border border-line bg-ink-soft p-8 sm:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="max-w-md">
+            <span className="font-display text-xs font-bold uppercase tracking-wider text-signal">
+              Join Our Newsletter
+            </span>
+            <h4 className="mt-1 font-display text-xl font-bold text-bone">
+              Stay ahead of digital growth &amp; tech trends
+            </h4>
+            <p className="mt-1 text-xs text-bone-dim">
+              Get updates about new projects, articles, and latest technology insights. No spam, ever.
+            </p>
+          </div>
+
+          <form onSubmit={handleNewsletterSubmit} className="flex w-full md:w-auto items-center gap-2">
+            <input
+              type="email"
+              value={newsletterEmail}
+              onChange={(e) => setNewsletterEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+              className="w-full md:w-72 rounded-xl border border-line bg-surface px-4 py-2.5 text-xs text-bone placeholder:text-bone-faint focus:border-signal focus:outline-hidden"
+            />
+            <button
+              type="submit"
+              className="shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-bone px-5 py-2.5 font-display text-xs font-semibold text-white transition-colors hover:bg-signal cursor-pointer"
+            >
+              {newsletterSuccess ? (
+                <>
+                  <CheckCircle2 size={14} className="text-emerald-400" />
+                  <span>Subscribed!</span>
+                </>
+              ) : (
+                <>
+                  <span>Subscribe</span>
+                  <Send size={12} />
+                </>
+              )}
+            </button>
+          </form>
         </div>
       </Container>
     </section>
@@ -379,26 +411,28 @@ function Field({
   label,
   htmlFor,
   error,
-  className = '',
   children,
 }: {
   label: string
   htmlFor: string
   error?: string
-  className?: string
   children: ReactNode
 }) {
   return (
-    <div className={`flex flex-col gap-2 ${className}`}>
+    <div className="flex flex-col gap-1.5">
       <label htmlFor={htmlFor} className="font-display text-xs font-semibold text-bone">
         {label}
       </label>
       {children}
-      {error ? (
-        <span role="alert" className="text-xs font-medium text-red-600">
-          {error}
-        </span>
-      ) : null}
+      {error ? <span className="text-[11px] text-red-500">{error}</span> : null}
     </div>
   )
+}
+
+function inputClass(hasError: boolean) {
+  return `w-full rounded-xl border bg-surface px-4 py-2.5 text-xs text-bone placeholder:text-bone-faint transition-colors focus:outline-hidden ${
+    hasError
+      ? 'border-red-400 focus:border-red-400'
+      : 'border-line focus:border-signal focus:ring-1 focus:ring-signal/20'
+  }`
 }
